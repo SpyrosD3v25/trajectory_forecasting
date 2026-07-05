@@ -39,3 +39,7 @@ python scripts/train.py --config experiments/baselines/kine_real_nvp_paper.yaml
 
 Batch execution stays reproducible through checked-in launchers:
 
+```bash
+bash experiments/baselines/run_all.sh
+```
+
