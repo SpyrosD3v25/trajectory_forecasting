@@ -49,3 +49,7 @@ training:
   early_stopping_patience: 4
   device: cpu
 
+evaluation:
+  save_prediction_examples: 8
+  evaluate_reverse_mapping: true
+
