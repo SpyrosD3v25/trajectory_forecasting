@@ -46,3 +46,7 @@ training:
   early_stopping_patience: 15
   device: auto
 
+evaluation:
+  save_prediction_examples: 24
+  evaluate_reverse_mapping: true
+
