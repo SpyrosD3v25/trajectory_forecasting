@@ -127,3 +127,44 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return args
 
 
+def args_to_config(args: argparse.Namespace) -> dict:
+    raw_roots = args.raw_roots or ([] if args.raw_root is None else [args.raw_root])
+    return {
+        "run_name": args.run_name,
+        "seed": args.seed,
+        "data": {
+            "raw_root": args.raw_root,
+            "raw_roots": raw_roots,
+            "processed_root": args.processed_root,
+            "include_ship_classes": args.include_ship_classes,
+            "quality_tiers": args.quality_tiers,
+            "max_train_samples": args.max_train_samples,
+            "max_val_samples": args.max_val_samples,
+            "max_test_samples": args.max_test_samples,
+        },
+        "model": {
+            "name": args.model_name,
+            "hidden_dim": args.hidden_dim,
+            "num_layers": args.num_layers,
+        },
+        "loss": {
+            "name": args.loss_name,
+            "normalize": args.normalize,
+            "teacher_forcing_ratio": args.teacher_forcing_ratio,
+        },
+        "optimizer": {
+            "learning_rate": args.learning_rate,
+            "weight_decay": args.weight_decay,
+        },
+        "training": {
+            "epochs": args.epochs,
+            "batch_size": args.batch_size,
+            "num_workers": args.num_workers,
+            "device": args.device,
+        },
+        "output": {
+            "results_root": args.results_root,
+        },
+    }
+
+
