@@ -6,3 +6,4 @@ The model is KineRoute-NVP only. It uses a safe polar kinematic chart, routed af
 
 Metrics: ADE, FDE, reverse ADE/FDE, velocity error, acceleration error, turn-rate error, infeasible acceleration percentage, infeasible turn-rate percentage.
 
+Outputs: one immutable `results/<timestamp>__experiment_1__kineroute_v1/` directory with `_results.json`, resolved config, checkpoints, logs, figures, and evaluation artifacts.
