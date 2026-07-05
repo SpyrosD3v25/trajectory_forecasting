@@ -33,3 +33,7 @@ python scripts/verify_download.py --dataset noaa_clean
 
 Every run is defined by one YAML under `experiments/`. One YAML corresponds to one run.
 
+```bash
+python scripts/train.py --config experiments/baselines/kine_real_nvp_paper.yaml
+```
+
