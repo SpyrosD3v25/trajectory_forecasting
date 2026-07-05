@@ -88,3 +88,37 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def main() -> None:
+    args = parse_args()
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    patterns = build_patterns(args.datasets, include_context=args.include_context)
+
+    print(f"Downloading official EnvShip-Bench paper assets to: {OUT_DIR.resolve()}")
+    print(f"Repository: {REPO_ID}")
+    print(f"Datasets: {', '.join(args.datasets)}")
+
+    try:
+        snapshot_download(
+            repo_id=REPO_ID,
+            repo_type="dataset",
+            local_dir=str(OUT_DIR),
+            allow_patterns=patterns,
+        )
+    except Exception as exc:
+        raise SystemExit(f"Download failed: {exc}") from exc
+
+    print("\nVerified files:")
+    for key in args.datasets:
+        remote_root = DATASETS[key]["remote_root"]
+        alias_root = DATASETS[key]["alias_root"]
+        create_alias(remote_root, alias_root)
+        print(f"\n[{key}]")
+        for path in [
+            OUT_DIR / remote_root / "train" / "part-000.csv.gz",
+            OUT_DIR / remote_root / "val" / "part-000.csv.gz",
+            OUT_DIR / remote_root / "test" / "part-000.csv.gz",
+            OUT_DIR / remote_root / "summary.json",
+            OUT_DIR / alias_root / "train" / "part-000.csv.gz",
+        ]:
+            status = "OK" if path.exists() else "MISSING"
+            print(f"[{status}] {path}")
