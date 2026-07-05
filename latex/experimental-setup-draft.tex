@@ -56,3 +56,9 @@ The DMA compact subset contributes 19,500 training windows and the NOAA compact 
 
 Each CSV row is one fixed-length vessel-trajectory sample containing 30 historical points and 30 future points. The preprocessing pipeline parses the \texttt{hist\_x\_json}, \texttt{hist\_y\_json}, \texttt{fut\_x\_json}, and \texttt{fut\_y\_json} arrays and stores them in compressed NumPy artifacts for training.
 
+For the recurrent baselines, the raw coordinate history and future arrays are used directly, followed by normalization computed from the training split only. For Kine-Real-NVP, the compact benchmark is additionally transformed with two geometric preprocessing steps:
+\begin{itemize}
+\item alignment to the last observed heading,
+\item displacement-chart encoding of the future trajectory.
+\end{itemize}
+
