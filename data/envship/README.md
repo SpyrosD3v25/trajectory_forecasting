@@ -70,3 +70,7 @@ The NOAA branch includes the March 2025 raw daily files used to build the releas
 
 The main files are CSV-based benchmark shards:
 
+- `train/part-*.csv.gz`
+- `val/part-*.csv.gz`
+- `test/part-*.csv.gz`
+
