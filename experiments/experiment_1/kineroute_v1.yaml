@@ -12,3 +12,10 @@ data:
   future_steps: 30
   prepare_if_missing: true
 
+model:
+  name: kineroute_nvp
+  num_routed_blocks: 6
+  hidden_dim: 256
+  hidden_layers: 2
+  scale_bound: 1.5
+
