@@ -15,3 +15,7 @@ def main(argv: list[str] | None = None) -> int:
     metrics = json.loads((result_dir / "evaluation" / "metrics.json").read_text())
     print(json.dumps(metrics, indent=2, sort_keys=True))
     return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
