@@ -24,3 +24,8 @@ def test_displacement_chart_round_trip() -> None:
     np.testing.assert_allclose(reconstructed, positions, atol=1e-8)
 
 
+def test_position_chart_round_trip() -> None:
+    positions = np.random.randn(3, 30, 2).astype(np.float64)
+    chart = encode_positions_numpy(positions, chart_type="position")
+    reconstructed = decode_chart_numpy(chart, chart_type="position")
+    np.testing.assert_allclose(reconstructed, positions, atol=1e-8)
