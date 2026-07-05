@@ -45,3 +45,5 @@ bash experiments/baselines/run_all.sh
 
 Each invocation creates exactly one directory:
 
+`results/<timestamp>__<experiment_name>__<run_name>/`
+
