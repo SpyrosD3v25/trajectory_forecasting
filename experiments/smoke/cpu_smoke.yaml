@@ -15,3 +15,10 @@ data:
   max_val_samples: 128
   max_test_samples: 128
 
+model:
+  name: kineroute_nvp
+  num_routed_blocks: 3
+  hidden_dim: 64
+  hidden_layers: 2
+  scale_bound: 1.2
+
