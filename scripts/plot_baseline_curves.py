@@ -46,3 +46,20 @@ def prettify_run_name(run_name: str) -> str:
     return aliases.get(cleaned, cleaned.replace("_", " "))
 
 
+def plot_metric(run_dirs: list[Path], metric_name: str, output_path: Path) -> None:
+    plt.figure(figsize=(10, 6))
+    for run_dir in run_dirs:
+        epochs, ades, fdes = load_series(run_dir)
+        series = ades if metric_name == "ADE" else fdes
+        plt.plot(epochs, series, label=prettify_run_name(run_dir.name.split("__", 2)[-1]))
+    plt.xlabel("Epoch")
+    plt.ylabel(metric_name)
+    plt.title(f"Validation {metric_name} by Epoch")
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(output_path, dpi=160)
+    plt.close()
+
+
