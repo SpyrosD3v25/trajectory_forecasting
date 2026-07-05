@@ -1,1 +1,3 @@
 run_name: lstm_coords_paper
+seed: 42
+
