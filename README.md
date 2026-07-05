@@ -71,3 +71,5 @@ Artifacts:
 - comparison plots: `results/baseline_plots/`
 - experimental setup draft: `latex/experimental-setup-draft.tex`
 
+## Repository Layout
+
