@@ -66,3 +66,35 @@ class LSTMBaseline(nn.Module):
         return output.view(history.shape[0], 30, 2)
 
 
+class Seq2SeqBaseline(nn.Module):
+    def __init__(self, input_dim: int = 2, hidden_dim: int = 128, num_layers: int = 2) -> None:
+        super().__init__()
+        self.encoder = nn.GRU(
+            input_size=input_dim,
+            hidden_size=hidden_dim,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.1 if num_layers > 1 else 0.0,
+        )
+        self.decoder = nn.GRU(
+            input_size=input_dim,
+            hidden_size=hidden_dim,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=0.1 if num_layers > 1 else 0.0,
+        )
+        self.output = nn.Linear(hidden_dim, input_dim)
+
+    def forward(self, history: torch.Tensor, target_future: torch.Tensor | None = None, teacher_forcing_ratio: float = 0.0) -> torch.Tensor:
+        _, hidden = self.encoder(history)
+        decoder_input = history[:, -1:, :]
+        outputs = []
+        for step_idx in range(30):
+            decoded, hidden = self.decoder(decoder_input, hidden)
+            step = self.output(decoded)
+            outputs.append(step)
+            if self.training and target_future is not None and teacher_forcing_ratio > 0.0 and torch.rand(1).item() < teacher_forcing_ratio:
+                decoder_input = target_future[:, step_idx : step_idx + 1, :]
+            else:
+                decoder_input = step
+        return torch.cat(outputs, dim=1)
