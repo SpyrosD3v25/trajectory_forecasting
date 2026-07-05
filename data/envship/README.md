@@ -64,3 +64,5 @@ The DMA branch includes the complete September 2025 daily raw files used to buil
 
 ### 6. `NOAA/data_raw/noaa/2025-03/ais-2025-03-*.csv.zst`
 
+The NOAA branch includes the March 2025 raw daily files used to build the released benchmark.
+
