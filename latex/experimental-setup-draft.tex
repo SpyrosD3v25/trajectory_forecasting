@@ -84,3 +84,13 @@ All recurrent baselines use hidden dimension 128 and 2 recurrent layers. Their p
 
 \subsubsection{Kine-Real-NVP}
 
+Kine-Real-NVP is an invertible supervised forecasting model built from routed RealNVP-style affine coupling blocks over a kinematic trajectory chart. In the compact-benchmark experiments, the strongest configuration uses:
+\begin{itemize}
+\item 6 routed coupling blocks,
+\item hidden dimension 256,
+\item 2 hidden layers per coupling network,
+\item scale bound 1.5,
+\item heading-aligned displacement-chart targets,
+\item pure ADE optimization without auxiliary physics penalties.
+\end{itemize}
+
