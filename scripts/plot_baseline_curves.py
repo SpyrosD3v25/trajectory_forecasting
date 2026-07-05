@@ -63,3 +63,10 @@ def plot_metric(run_dirs: list[Path], metric_name: str, output_path: Path) -> No
     plt.close()
 
 
+def main() -> None:
+    args = parse_args()
+    results_root = Path(args.results_root)
+    run_dirs = sorted(path for path in results_root.glob(f"*__{args.experiment_name}__*") if (path / "logs" / "metrics.jsonl").exists())
+    output_dir = Path(args.output_dir)
+    plot_metric(run_dirs, "ADE", output_dir / "val_ade_vs_epoch.png")
+    plot_metric(run_dirs, "FDE", output_dir / "val_fde_vs_epoch.png")
