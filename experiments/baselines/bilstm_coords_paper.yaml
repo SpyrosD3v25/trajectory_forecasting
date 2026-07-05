@@ -27,3 +27,5 @@ training:
   num_workers: 4
   device: cuda
 
+output:
+  results_root: results
