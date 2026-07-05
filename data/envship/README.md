@@ -26,3 +26,9 @@ The layout keeps each source in its own top-level directory so new branches can 
 
 All benchmark samples follow the same protocol:
 
+- Observation horizon: 10 minutes
+- Prediction horizon: 10 minutes
+- Sampling interval: 20 seconds
+- History length: 30 points
+- Future length: 30 points
+
