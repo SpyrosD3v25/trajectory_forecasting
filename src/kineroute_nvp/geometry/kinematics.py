@@ -106,3 +106,8 @@ def positions_to_position_chart_numpy(positions: np.ndarray) -> np.ndarray:
     return positions_to_position_chart_torch(tensor).cpu().numpy()
 
 
+def position_chart_to_positions_numpy(chart: np.ndarray) -> np.ndarray:
+    tensor = torch.as_tensor(chart, dtype=torch.float64)
+    return position_chart_to_positions_torch(tensor).cpu().numpy()
+
+
