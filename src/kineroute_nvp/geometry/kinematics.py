@@ -173,3 +173,8 @@ def sequence_kinematics(sequence: torch.Tensor, dt_seconds: float, eps: float = 
     }
 
 
+def invertibility_error(chart: torch.Tensor) -> float:
+    reconstructed = positions_to_chart_torch(chart_to_positions_torch(chart))
+    return float(torch.max(torch.abs(reconstructed - chart)).item())
+
+
