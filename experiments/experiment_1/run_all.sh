@@ -10,3 +10,4 @@ for yaml in "$REPO_ROOT"/experiments/experiment_1/*.yaml; do
   created+=("$output")
 done
 
+printf '%s\n' "${created[@]}"
