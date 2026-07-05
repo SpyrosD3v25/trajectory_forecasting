@@ -168,3 +168,5 @@ def args_to_config(args: argparse.Namespace) -> dict:
     }
 
 
+def config_summary(args: argparse.Namespace) -> str:
+    return json.dumps(args_to_config(args), indent=2)
