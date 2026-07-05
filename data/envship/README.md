@@ -76,3 +76,5 @@ The main files are CSV-based benchmark shards:
 
 Each row is one fixed-length trajectory sample with 30 historical points and 30 future points, together with metadata and quality labels.
 
+## Reproducibility
+
