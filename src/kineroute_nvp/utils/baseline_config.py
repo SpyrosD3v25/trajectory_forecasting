@@ -57,3 +57,34 @@ def _str2bool(value: str | bool) -> bool:
     raise argparse.ArgumentTypeError(f"Invalid boolean value: {value}")
 
 
+def build_parser(defaults: Dict[str, Any] | None = None) -> argparse.ArgumentParser:
+    defaults = defaults or {}
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config")
+    parser.add_argument("--experiment-name", default=defaults.get("experiment_name"))
+    parser.add_argument("--run-name", default=defaults.get("run_name"))
+    parser.add_argument("--seed", type=int, default=defaults.get("seed", 42))
+    parser.add_argument("--raw-root", default=defaults.get("raw_root"))
+    parser.add_argument("--raw-roots", nargs="*", default=defaults.get("raw_roots"))
+    parser.add_argument("--processed-root", default=defaults.get("processed_root"))
+    parser.add_argument("--include-ship-classes", nargs="*", default=defaults.get("include_ship_classes"))
+    parser.add_argument("--quality-tiers", nargs="*", default=defaults.get("quality_tiers"))
+    parser.add_argument("--max-train-samples", type=int, default=defaults.get("max_train_samples"))
+    parser.add_argument("--max-val-samples", type=int, default=defaults.get("max_val_samples"))
+    parser.add_argument("--max-test-samples", type=int, default=defaults.get("max_test_samples"))
+    parser.add_argument("--model-name", choices=["gru", "bigru", "lstm", "bilstm", "seq2seq"], default=defaults.get("model_name", "gru"))
+    parser.add_argument("--hidden-dim", type=int, default=defaults.get("hidden_dim", 128))
+    parser.add_argument("--num-layers", type=int, default=defaults.get("num_layers", 2))
+    parser.add_argument("--loss-name", choices=["ade", "mse"], default=defaults.get("loss_name", "mse"))
+    parser.add_argument("--normalize", type=_str2bool, default=defaults.get("normalize", True))
+    parser.add_argument("--teacher-forcing-ratio", type=float, default=defaults.get("teacher_forcing_ratio", 0.5))
+    parser.add_argument("--learning-rate", type=float, default=defaults.get("learning_rate", 1e-3))
+    parser.add_argument("--weight-decay", type=float, default=defaults.get("weight_decay", 1e-4))
+    parser.add_argument("--epochs", type=int, default=defaults.get("epochs", 80))
+    parser.add_argument("--batch-size", type=int, default=defaults.get("batch_size", 256))
+    parser.add_argument("--num-workers", type=int, default=defaults.get("num_workers", 4))
+    parser.add_argument("--device", default=defaults.get("device", "cuda"))
+    parser.add_argument("--results-root", default=defaults.get("results_root", "baseline_results"))
+    return parser
+
+
