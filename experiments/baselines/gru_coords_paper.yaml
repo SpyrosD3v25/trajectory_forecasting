@@ -7,3 +7,8 @@ data:
     - data/envship/paper_noaa_clean_ship_core_lite_v1
   processed_root: data/processed/envship_baseline_paper_clean_coords
 
+model:
+  name: gru
+  hidden_dim: 128
+  num_layers: 2
+
