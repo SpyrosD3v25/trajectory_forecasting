@@ -36,3 +36,13 @@ def append_jsonl(path: Path, payload: dict) -> None:
         handle.write(json.dumps(payload, sort_keys=True) + "\n")
 
 
+def get_git_commit(cwd: Path) -> str | None:
+    try:
+        return (
+            subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=cwd, stderr=subprocess.DEVNULL, text=True)
+            .strip()
+        )
+    except Exception:
+        return None
+
+
