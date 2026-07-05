@@ -146,3 +146,5 @@ Kine-Real-NVP & -- & -- & 50.26 & 110.81 & 50.40 & 112.09 \\
 
 The recurrent baselines all moved into the paper regime once the correct compact benchmark was used. Seq2Seq was reproduced almost exactly. GRU, Bi-GRU, LSTM, and Bi-LSTM all slightly outperformed the paper reference values in this implementation. Kine-Real-NVP achieved the strongest performance overall, with a test result of 50.40 ADE and 112.09 FDE.
 
+The Kine-Real-NVP epoch trajectory is also notable: the best validation result occurred at epoch 36, well before the 80-epoch schedule completed. This indicates that the compact benchmark is highly compatible with the aligned displacement-chart parameterization and that the model reaches a strong forecasting regime early in training.
+
