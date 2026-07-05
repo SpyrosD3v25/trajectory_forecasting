@@ -103,3 +103,5 @@ Although the mapping is numerically invertible as a function from history-chart 
 
 All reported compact-benchmark experiments use 80 epochs, batch size 256, AdamW optimization, learning rate $10^{-3}$, and weight decay $10^{-4}$. The learning-rate scheduler is ReduceLROnPlateau with factor 0.5 and patience 8. For the canonical Kine-Real-NVP run, the experiment YAML sets the early-stopping patience to 999 so that the full 80-epoch schedule is executed while still preserving the same checkpointing and logging interface as the other runs.
 
+The recurrent baselines are trained with normalized coordinates and mean-squared error in normalized target space. Seq2Seq uses teacher forcing ratio 0.5 during training. Kine-Real-NVP is trained with pure ADE loss, with all auxiliary velocity, acceleration, turn, feasibility, reverse, position-MSE, and extra FDE weights set to zero. This was the strongest Kine-Real-NVP setting on the compact benchmark.
+
