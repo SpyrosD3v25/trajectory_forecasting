@@ -78,3 +78,5 @@ Artifacts:
 - `experiments/`: YAML-defined runs and launchers
 - `latex/`: paper-facing writeups
 
+## Note on Invertibility
+
