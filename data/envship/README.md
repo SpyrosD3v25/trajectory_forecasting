@@ -60,3 +60,5 @@ These packages support environment-aware and interaction-aware vessel forecastin
 
 ### 5. `DMA/data_raw/dma/incoming/2025-09/aisdk-2025-09-*.zip`
 
+The DMA branch includes the complete September 2025 daily raw files used to build the released benchmark. The original DMA CSV field note is also included in the same directory.
+
