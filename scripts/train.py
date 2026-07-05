@@ -11,3 +11,15 @@ from kineroute_nvp.training.trainer import ExperimentRunner
 from kineroute_nvp.utils.config import args_to_config, parse_args
 
 
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv)
+    config = args_to_config(args)
+    runner = ExperimentRunner(
+        config=config,
+        experiment_name=args.experiment_name,
+        repo_root=REPO_ROOT,
+        command="python scripts/train.py " + " ".join(shlex.quote(arg) for arg in (argv or sys.argv[1:])),
+    )
+    result_dir = runner.run()
+    print(result_dir)
+    return 0
