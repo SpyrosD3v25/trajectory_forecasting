@@ -44,3 +44,5 @@ A more inclusive release that retains additional valid windows beyond the strict
 
 ### 3. `DMA/mini_benchmark/ship_core_lite`
 
+A lightweight representative mini benchmark for quick experimentation and method prototyping.
+
