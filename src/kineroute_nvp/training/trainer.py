@@ -31,3 +31,14 @@ def _device_from_config(name: str) -> torch.device:
     return torch.device(name)
 
 
+def _rng_state() -> dict:
+    state = {
+        "python": random.getstate(),
+        "numpy": np.random.get_state(),
+        "torch": torch.random.get_rng_state(),
+    }
+    if torch.cuda.is_available():
+        state["cuda"] = torch.cuda.get_rng_state_all()
+    return state
+
+
