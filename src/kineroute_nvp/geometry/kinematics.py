@@ -111,3 +111,13 @@ def position_chart_to_positions_numpy(chart: np.ndarray) -> np.ndarray:
     return position_chart_to_positions_torch(tensor).cpu().numpy()
 
 
+def encode_positions_torch(positions: torch.Tensor, chart_type: str, eps: float = 1e-8) -> torch.Tensor:
+    if chart_type == "polar":
+        return positions_to_chart_torch(positions, eps=eps)
+    if chart_type == "displacement":
+        return positions_to_displacement_chart_torch(positions)
+    if chart_type == "position":
+        return positions_to_position_chart_torch(positions)
+    raise ValueError(f"Unsupported chart_type: {chart_type}")
+
+
