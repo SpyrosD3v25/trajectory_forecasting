@@ -9,3 +9,8 @@ This Hugging Face release currently provides two source branches under a shared 
 
 The DMA branch is organized under:
 
+- `DMA/benchmark/core/`
+- `DMA/benchmark/full/`
+- `DMA/mini_benchmark/ship_core_lite/`
+- `DMA/mini_benchmark/clean_ship_core_lite_v1/`
+
