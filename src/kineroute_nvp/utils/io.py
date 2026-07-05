@@ -23,3 +23,10 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True))
 
 
+def write_yaml(path: Path, payload: dict) -> None:
+    import yaml
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(yaml.safe_dump(payload, sort_keys=False))
+
+
