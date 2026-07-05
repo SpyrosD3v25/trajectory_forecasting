@@ -12,3 +12,8 @@ model:
   hidden_dim: 128
   num_layers: 2
 
+loss:
+  name: mse
+  normalize: true
+  teacher_forcing_ratio: 0.0
+
