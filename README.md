@@ -73,3 +73,8 @@ Artifacts:
 
 ## Repository Layout
 
+- `src/kineroute_nvp/`: model, preprocessing, training, evaluation
+- `scripts/`: download, verification, training, plotting
+- `experiments/`: YAML-defined runs and launchers
+- `latex/`: paper-facing writeups
+
