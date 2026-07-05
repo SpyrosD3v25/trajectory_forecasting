@@ -59,3 +59,5 @@ That directory contains:
 
 ## Current Baseline Result
 
+Canonical Kine-Real-NVP compact-benchmark run:
+
