@@ -152,3 +152,22 @@ def validate_config_path(config_path: str) -> str:
     return path.parts[1]
 
 
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    initial = argparse.ArgumentParser(add_help=False)
+    initial.add_argument("--config")
+    initial_args, _ = initial.parse_known_args(argv)
+    defaults = load_yaml_defaults(initial_args.config)
+    parser = build_parser(defaults=defaults)
+    args = parser.parse_args(argv)
+    if args.config:
+        inferred_experiment = validate_config_path(args.config)
+        if not args.experiment_name:
+            args.experiment_name = inferred_experiment
+        if not args.run_name:
+            raise ValueError("run_name must be present in the YAML or overridden on the CLI.")
+    else:
+        if not args.experiment_name or not args.run_name:
+            raise ValueError("Direct CLI usage requires both --experiment-name and --run-name.")
+    return args
+
+
