@@ -41,3 +41,11 @@ scheduler:
   factor: 0.5
   patience: 2
 
+training:
+  epochs: 3
+  batch_size: 64
+  num_workers: 0
+  checkpoint_every_epochs: 1
+  early_stopping_patience: 4
+  device: cpu
+
