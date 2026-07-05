@@ -50,3 +50,15 @@ def positions_to_displacement_chart_torch(positions: torch.Tensor) -> torch.Tens
     return torch.cat([positions[..., 0, :], displacements[..., 0], displacements[..., 1]], dim=-1)
 
 
+def displacement_chart_to_positions_torch(chart: torch.Tensor) -> torch.Tensor:
+    if chart.shape[-1] != 60:
+        raise ValueError(f"Expected chart[..., 60], got {tuple(chart.shape)}")
+    anchor = chart[..., :2]
+    dx = chart[..., 2:31]
+    dy = chart[..., 31:]
+    displacements = torch.stack([dx, dy], dim=-1)
+    cumulative = torch.cumsum(displacements, dim=-2)
+    anchors = anchor.unsqueeze(-2)
+    return torch.cat([anchors, anchors + cumulative], dim=-2)
+
+
