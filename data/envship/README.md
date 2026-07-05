@@ -82,3 +82,5 @@ The dataset construction code, preprocessing pipeline, visualization scripts, an
 
 This dataset can be used directly for vessel trajectory forecasting, and it is also designed to support adaptation of trajectory forecasting methods originally developed for pedestrian prediction.
 
+For model background and forecasting methodology inspiration, please refer to our paper:
+
