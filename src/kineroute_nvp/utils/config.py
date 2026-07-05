@@ -57,3 +57,14 @@ CONFIG_TO_ARG = {
 }
 
 
+def _flatten(data: dict, prefix: str = "") -> Dict[str, Any]:
+    flattened: Dict[str, Any] = {}
+    for key, value in data.items():
+        path = f"{prefix}.{key}" if prefix else key
+        if isinstance(value, dict):
+            flattened.update(_flatten(value, path))
+        else:
+            flattened[path] = value
+    return flattened
+
+
