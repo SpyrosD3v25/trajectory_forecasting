@@ -8,3 +8,12 @@ from kineroute_nvp.geometry.kinematics import (
 )
 
 
+def test_chart_round_trip_handles_zero_steps() -> None:
+    positions = np.zeros((2, 30, 2), dtype=np.float64)
+    positions[0, :, 0] = np.linspace(0.0, 29.0, 30)
+    positions[1, 5:, 0] = np.linspace(0.0, 24.0, 25)
+    chart = positions_to_chart_numpy(positions)
+    reconstructed = chart_to_positions_numpy(chart)
+    np.testing.assert_allclose(reconstructed, positions, atol=1e-8)
+
+
