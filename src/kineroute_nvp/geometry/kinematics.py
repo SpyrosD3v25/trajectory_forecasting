@@ -11,3 +11,7 @@ def wrap_angle_torch(angle: torch.Tensor) -> torch.Tensor:
     return torch.atan2(torch.sin(angle), torch.cos(angle))
 
 
+def wrap_angle_numpy(angle: np.ndarray) -> np.ndarray:
+    return np.arctan2(np.sin(angle), np.cos(angle))
+
+
