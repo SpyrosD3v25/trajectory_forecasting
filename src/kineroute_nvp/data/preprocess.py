@@ -54,3 +54,18 @@ def _compute_thresholds(train_future: np.ndarray, train_history: np.ndarray, dt_
     }
 
 
+def _align_pair_to_last_heading(history: np.ndarray, future: np.ndarray, eps: float = 1e-8) -> tuple[np.ndarray, np.ndarray]:
+    displacements = np.diff(history, axis=0)
+    norms = np.linalg.norm(displacements, axis=-1)
+    valid = np.where(norms > eps)[0]
+    if len(valid) == 0:
+        angle = 0.0
+    else:
+        last_disp = displacements[valid[-1]]
+        angle = np.arctan2(last_disp[1], last_disp[0])
+    cos_a = np.cos(-angle)
+    sin_a = np.sin(-angle)
+    rotation = np.array([[cos_a, -sin_a], [sin_a, cos_a]], dtype=np.float32)
+    return history @ rotation.T, future @ rotation.T
+
+
