@@ -15,3 +15,18 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def load_series(run_dir: Path) -> tuple[list[int], list[float], list[float]]:
+    metrics_path = run_dir / "logs" / "metrics.jsonl"
+    epochs: list[int] = []
+    ades: list[float] = []
+    fdes: list[float] = []
+    with metrics_path.open() as handle:
+        for line in handle:
+            record = json.loads(line)
+            epochs.append(int(record["epoch"]))
+            val = record["val"]
+            ades.append(float(val["ade"]))
+            fdes.append(float(val["fde"]))
+    return epochs, ades, fdes
+
+
