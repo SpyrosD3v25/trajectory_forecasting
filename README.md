@@ -61,3 +61,7 @@ That directory contains:
 
 Canonical Kine-Real-NVP compact-benchmark run:
 
+- best epoch: `36`
+- best val ADE/FDE: `50.2624 / 110.8145`
+- test ADE/FDE: `50.3953 / 112.0903`
+
