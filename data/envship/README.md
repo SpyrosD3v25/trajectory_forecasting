@@ -84,3 +84,4 @@ This dataset can be used directly for vessel trajectory forecasting, and it is a
 
 For model background and forecasting methodology inspiration, please refer to our paper:
 
+**P2R-Net: Prior-to-Refinement Multimodal Trajectory Forecasting for Feasible Pedestrian Motion Prediction**
