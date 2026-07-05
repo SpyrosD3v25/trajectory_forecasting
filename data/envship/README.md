@@ -20,3 +20,5 @@ The NOAA branch is organized under:
 - `NOAA/benchmark/full/`
 - `NOAA/mini_bench/clean_ship_core_lite_v1/`
 
+The layout keeps each source in its own top-level directory so new branches can be added without changing the public repository structure.
+
