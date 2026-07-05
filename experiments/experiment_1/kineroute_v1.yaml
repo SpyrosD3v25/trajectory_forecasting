@@ -1,3 +1,14 @@
 run_name: kineroute_v1
 seed: 42
 
+data:
+  raw_root: data/envship/track_a_short-term_Cross-domain_Datasets/dma_track_v1
+  processed_root: data/processed/envship_dma
+  train_split: train
+  val_split: val
+  test_split: test
+  dt_seconds: 20.0
+  history_steps: 30
+  future_steps: 30
+  prepare_if_missing: true
+
