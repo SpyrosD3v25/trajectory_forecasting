@@ -8,3 +8,5 @@ The model learns a supervised invertible map from 30 observed vessel positions t
 
 Experiments use the official compact paper subsets from:
 
+`mark000071/EnvShip-Bench_An_Environment-Enhanced_Benchmark_for_Short-Term_Vessel_Trajectory_Prediction`
+
