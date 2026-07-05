@@ -122,3 +122,7 @@ def main() -> None:
         ]:
             status = "OK" if path.exists() else "MISSING"
             print(f"[{status}] {path}")
+
+
+if __name__ == "__main__":
+    main()
