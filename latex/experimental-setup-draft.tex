@@ -71,3 +71,5 @@ Heading alignment rotates each sample so that the last observed motion direction
 
 Five recurrent baselines are evaluated under the same compact-benchmark protocol.
 
+The Seq2Seq model uses a GRU encoder and a GRU decoder with teacher forcing during training. The GRU and Bi-GRU baselines use a recurrent encoder followed by a multilayer perceptron head that predicts the full 30-step future. The LSTM and Bi-LSTM baselines use the same prediction head structure but replace the GRU encoder with an LSTM encoder.
+
