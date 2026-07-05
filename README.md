@@ -23,3 +23,9 @@ Combined split sizes:
 
 Download and verify:
 
+```bash
+python scripts/download_envship.py --datasets dma_clean noaa_clean
+python scripts/verify_download.py --dataset dma_clean
+python scripts/verify_download.py --dataset noaa_clean
+```
+
