@@ -1,3 +1,18 @@
 run_name: kineroute_paper
 seed: 42
 
+data:
+  raw_roots:
+    - data/envship/paper_dma_clean_ship_core_lite_v1
+    - data/envship/paper_noaa_clean_ship_core_lite_v1
+  processed_root: data/processed/envship_paper_clean_aligned_disp
+  train_split: train
+  val_split: val
+  test_split: test
+  dt_seconds: 20.0
+  history_steps: 30
+  future_steps: 30
+  prepare_if_missing: true
+  align_to_last_heading: true
+  chart_type: displacement
+
