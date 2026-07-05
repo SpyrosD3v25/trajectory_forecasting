@@ -46,3 +46,14 @@ def _flatten(data: dict, prefix: str = "") -> Dict[str, Any]:
     return flattened
 
 
+def _str2bool(value: str | bool) -> bool:
+    if isinstance(value, bool):
+        return value
+    value = value.lower()
+    if value in {"1", "true", "yes", "y"}:
+        return True
+    if value in {"0", "false", "no", "n"}:
+        return False
+    raise argparse.ArgumentTypeError(f"Invalid boolean value: {value}")
+
+
