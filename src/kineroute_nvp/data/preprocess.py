@@ -20,3 +20,11 @@ REQUIRED_COLUMNS = ["sample_id", "hist_x_json", "hist_y_json", "fut_x_json", "fu
 
 
 @dataclass
+class PrepareSummary:
+    processed_root: Path
+    metadata_path: Path
+    normalization_path: Path
+    thresholds_path: Path
+    split_sizes: Dict[str, int]
+
+
