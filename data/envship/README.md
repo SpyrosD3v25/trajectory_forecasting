@@ -38,3 +38,5 @@ All benchmark samples follow the same protocol:
 
 The main large-scale benchmark release with strict quality control for standardized vessel trajectory prediction.
 
+### 2. `DMA/benchmark/full`
+
