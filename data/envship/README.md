@@ -34,3 +34,5 @@ All benchmark samples follow the same protocol:
 
 ## Included Data
 
+### 1. `DMA/benchmark/core`
+
