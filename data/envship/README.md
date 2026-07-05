@@ -40,3 +40,5 @@ The main large-scale benchmark release with strict quality control for standardi
 
 ### 2. `DMA/benchmark/full`
 
+A more inclusive release that retains additional valid windows beyond the strict core subset.
+
