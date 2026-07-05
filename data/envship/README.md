@@ -46,3 +46,5 @@ A more inclusive release that retains additional valid windows beyond the strict
 
 A lightweight representative mini benchmark for quick experimentation and method prototyping.
 
+### 4. `DMA/mini_benchmark/clean_ship_core_lite_v1`
+
