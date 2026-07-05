@@ -19,3 +19,5 @@ The evaluation reported here focuses on coordinate-only deterministic forecastin
 \subsection{Execution Environment}
 \label{subsec:execution_environment}
 
+Experiments were run on an NVIDIA GeForce RTX 2050 GPU with 4 GB of memory in the local \texttt{data\_science} Python environment. Training used PyTorch with CUDA execution. For reproducibility, every compact-benchmark run was launched from a checked-in experiment YAML and wrote a fully resolved configuration, command record, per-epoch metric log, checkpoints, and final machine-readable metrics into a timestamped results directory under \texttt{results/}.
+
