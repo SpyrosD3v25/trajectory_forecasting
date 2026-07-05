@@ -31,3 +31,5 @@ python scripts/verify_download.py --dataset noaa_clean
 
 ## Experiments
 
+Every run is defined by one YAML under `experiments/`. One YAML corresponds to one run.
+
