@@ -14,3 +14,5 @@
 
 The experiments evaluate deterministic short-term vessel trajectory forecasting on the compact EnvShip-Bench paper benchmark. The goal is to predict the next 10 minutes of vessel motion from the previous 10 minutes under a unified 30$\rightarrow$30 forecasting protocol. All models are evaluated on the same curated compact split family so that architectural differences, rather than dataset-version differences, explain performance differences.
 
+The evaluation reported here focuses on coordinate-only deterministic forecasting. We compare five recurrent baselines, namely Seq2Seq, GRU, Bi-GRU, LSTM, and Bi-LSTM, against a single invertible forecasting model, Kine-Real-NVP. The Kine-Real-NVP model corresponds to the KineRoute-NVP implementation used in this repository, but the run name in the results section is written as Kine-Real-NVP for easier comparison with the baseline family.
+
