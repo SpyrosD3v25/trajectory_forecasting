@@ -52,3 +52,7 @@ A quality-first compact benchmark with stricter filtering and controlled motion 
 
 This subset also includes:
 
+- `environment_v1`
+- `environment_v2`
+- `social_env_v1`
+
