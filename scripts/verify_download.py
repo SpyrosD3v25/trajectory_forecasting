@@ -41,3 +41,7 @@ def main() -> None:
     print(f"num_rows={len(df)}")
     print(f"summary_exists={summary_path.exists()}")
     print(df.columns.tolist())
+
+
+if __name__ == "__main__":
+    main()
