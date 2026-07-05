@@ -28,3 +28,11 @@ class PrepareSummary:
     split_sizes: Dict[str, int]
 
 
+def _parse_positions(row: pd.Series, prefix: str) -> np.ndarray:
+    x = np.asarray(json.loads(row[f"{prefix}_x_json"]), dtype=np.float64)
+    y = np.asarray(json.loads(row[f"{prefix}_y_json"]), dtype=np.float64)
+    if x.shape != (30,) or y.shape != (30,):
+        raise ValueError(f"{prefix} arrays must be length 30, got {x.shape} and {y.shape}")
+    return np.stack([x, y], axis=-1)
+
+
