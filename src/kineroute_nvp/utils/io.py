@@ -46,3 +46,10 @@ def get_git_commit(cwd: Path) -> str | None:
         return None
 
 
+def environment_snapshot() -> dict:
+    return {
+        "python": sys.version,
+        "platform": platform.platform(),
+        "torch_version": getattr(torch, "__version__", None),
+        "cuda_available": torch.cuda.is_available(),
+    }
