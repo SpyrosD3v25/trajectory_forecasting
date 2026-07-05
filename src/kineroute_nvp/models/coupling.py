@@ -19,3 +19,16 @@ def _make_mlp(in_dim: int, out_dim: int, hidden_dim: int, hidden_layers: int) ->
     return net
 
 
+class AffineSubnet(nn.Module):
+    def __init__(self, in_dim: int, target_dim: int, hidden_dim: int, hidden_layers: int, scale_bound: float) -> None:
+        super().__init__()
+        self.scale_bound = scale_bound
+        self.scale_net = _make_mlp(in_dim, target_dim, hidden_dim, hidden_layers)
+        self.shift_net = _make_mlp(in_dim, target_dim, hidden_dim, hidden_layers)
+
+    def forward(self, conditioning: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        log_scale = self.scale_bound * torch.tanh(self.scale_net(conditioning))
+        shift = self.shift_net(conditioning)
+        return log_scale, shift
+
+
