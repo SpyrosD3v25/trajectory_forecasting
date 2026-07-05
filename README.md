@@ -6,3 +6,5 @@ The model learns a supervised invertible map from 30 observed vessel positions t
 
 ## Dataset
 
+Experiments use the official compact paper subsets from:
+
