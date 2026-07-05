@@ -68,3 +68,5 @@ The NOAA branch includes the March 2025 raw daily files used to build the releas
 
 ## Quick Start
 
+The main files are CSV-based benchmark shards:
+
