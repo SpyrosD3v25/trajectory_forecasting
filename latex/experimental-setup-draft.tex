@@ -126,3 +126,21 @@ Both metrics are measured in meters. Lower values are better.
 
 Table~\ref{tab:compact_baseline_results} reports the compact-benchmark results obtained from the unified \texttt{results/} artifact tree. The recurrent baselines closely reproduce the paper's coordinate-only deterministic regime, while Kine-Real-NVP substantially improves on all of them.
 
+\begin{table*}[t]
+\centering
+\caption{Compact benchmark results on the coordinate-only deterministic setting. Paper values are listed for reference, and repository results report the completed compact-benchmark runs from this work.}
+\label{tab:compact_baseline_results}
+\begin{tabular}{lrrrrrr}
+\toprule
+Model & Paper ADE & Paper FDE & Best Val ADE & Best Val FDE & Test ADE & Test FDE \\
+\midrule
+Seq2Seq & 59.57 & 131.43 & 59.62 & 128.11 & 60.19 & 129.41 \\
+GRU & 59.72 & 133.69 & 57.65 & 123.44 & 58.13 & 125.47 \\
+Bi-GRU & 61.08 & 134.51 & 55.35 & 119.58 & 57.44 & 124.64 \\
+LSTM & 65.72 & 156.92 & 59.22 & 125.94 & 59.58 & 127.22 \\
+Bi-LSTM & 74.97 & 193.37 & 57.81 & 123.87 & 58.85 & 126.98 \\
+Kine-Real-NVP & -- & -- & 50.26 & 110.81 & 50.40 & 112.09 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
