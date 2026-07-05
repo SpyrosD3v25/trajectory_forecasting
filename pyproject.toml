@@ -2,3 +2,9 @@
 requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "kineroute-nvp"
+version = "0.1.0"
+description = "KineRoute-NVP for EnvShip trajectory forecasting"
+requires-python = ">=3.13"
+
