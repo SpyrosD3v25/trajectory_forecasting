@@ -67,3 +67,7 @@ Canonical Kine-Real-NVP compact-benchmark run:
 
 Artifacts:
 
+- run directory: `results/20260705_163634__baselines__kine_real_nvp_paper`
+- comparison plots: `results/baseline_plots/`
+- experimental setup draft: `latex/experimental-setup-draft.tex`
+
