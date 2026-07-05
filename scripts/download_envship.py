@@ -71,3 +71,20 @@ def create_alias(remote_root: str, alias_root: str) -> None:
     summary_link.symlink_to((source_root / "summary.json").resolve())
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Download the official EnvShip-Bench paper subsets from Hugging Face.")
+    parser.add_argument(
+        "--datasets",
+        nargs="+",
+        choices=sorted(DATASETS),
+        default=["dma_clean"],
+        help="Which official paper subsets to download.",
+    )
+    parser.add_argument(
+        "--include-context",
+        action="store_true",
+        help="Also download environment/social context packages for the selected clean subsets.",
+    )
+    return parser.parse_args()
+
+
