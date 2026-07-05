@@ -49,3 +49,11 @@ Each invocation creates exactly one directory:
 
 That directory contains:
 
+- `resolved_config.yaml`
+- `command.txt`
+- `logs/metrics.jsonl`
+- `checkpoints/`
+- `evaluation/`
+- `figures/`
+- `_results.json`
+
