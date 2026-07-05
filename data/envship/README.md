@@ -48,3 +48,5 @@ A lightweight representative mini benchmark for quick experimentation and method
 
 ### 4. `DMA/mini_benchmark/clean_ship_core_lite_v1`
 
+A quality-first compact benchmark with stricter filtering and controlled motion profiles.
+
