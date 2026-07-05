@@ -1,3 +1,9 @@
 run_name: lstm_coords_paper
 seed: 42
 
+data:
+  raw_roots:
+    - data/envship/paper_dma_clean_ship_core_lite_v1
+    - data/envship/paper_noaa_clean_ship_core_lite_v1
+  processed_root: data/processed/envship_baseline_paper_clean_coords
+
