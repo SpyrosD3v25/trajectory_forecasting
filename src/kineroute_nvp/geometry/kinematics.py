@@ -141,3 +141,13 @@ def encode_positions_numpy(positions: np.ndarray, chart_type: str, eps: float = 
     raise ValueError(f"Unsupported chart_type: {chart_type}")
 
 
+def decode_chart_numpy(chart: np.ndarray, chart_type: str) -> np.ndarray:
+    if chart_type == "polar":
+        return chart_to_positions_numpy(chart)
+    if chart_type == "displacement":
+        return displacement_chart_to_positions_numpy(chart)
+    if chart_type == "position":
+        return position_chart_to_positions_numpy(chart)
+    raise ValueError(f"Unsupported chart_type: {chart_type}")
+
+
