@@ -4,3 +4,7 @@ Runs the smallest deterministic end-to-end validation for preprocessing, trainin
 
 Run it with:
 
+```bash
+bash experiments/smoke/run_all.sh
+```
+
