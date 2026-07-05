@@ -56,3 +56,5 @@ This subset also includes:
 - `environment_v2`
 - `social_env_v1`
 
+These packages support environment-aware and interaction-aware vessel forecasting on top of the same compact split.
+
