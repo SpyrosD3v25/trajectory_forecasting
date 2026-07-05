@@ -16,3 +16,10 @@ data:
   align_to_last_heading: true
   chart_type: displacement
 
+model:
+  name: kineroute_nvp
+  num_routed_blocks: 6
+  hidden_dim: 256
+  hidden_layers: 2
+  scale_bound: 1.5
+
