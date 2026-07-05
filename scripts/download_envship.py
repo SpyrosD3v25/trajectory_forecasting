@@ -27,3 +27,29 @@ DATASETS = {
 DOC_PATTERNS = ["README.md"]
 
 
+def build_patterns(keys: list[str], include_context: bool) -> list[str]:
+    patterns = list(DOC_PATTERNS)
+    for key in keys:
+        remote_root = DATASETS[key]["remote_root"]
+        patterns.extend(
+            [
+                f"{remote_root}/train/**",
+                f"{remote_root}/val/**",
+                f"{remote_root}/test/**",
+                f"{remote_root}/summary.json",
+                f"{remote_root}/reports/**",
+                f"{remote_root}/sample_ids/**",
+                f"{remote_root}/README.md",
+            ]
+        )
+        if include_context:
+            patterns.extend(
+                [
+                    f"{remote_root}/environment_v1/**",
+                    f"{remote_root}/environment_v2/**",
+                    f"{remote_root}/social_env_v1/**",
+                ]
+            )
+    return patterns
+
+
