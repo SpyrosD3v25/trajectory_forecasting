@@ -17,3 +17,7 @@ Local aliases:
 
 Combined split sizes:
 
+- train: `29635`
+- val: `3667`
+- test: `3262`
+
