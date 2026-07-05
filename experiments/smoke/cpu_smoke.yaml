@@ -1,3 +1,17 @@
 run_name: cpu_smoke
 seed: 7
 
+data:
+  raw_root: data/envship/track_a_short-term_Cross-domain_Datasets/dma_track_v1
+  processed_root: data/processed/envship_dma_smoke
+  train_split: train
+  val_split: val
+  test_split: test
+  dt_seconds: 20.0
+  history_steps: 30
+  future_steps: 30
+  prepare_if_missing: true
+  max_train_samples: 256
+  max_val_samples: 128
+  max_test_samples: 128
+
