@@ -73,3 +73,12 @@ Five recurrent baselines are evaluated under the same compact-benchmark protocol
 
 The Seq2Seq model uses a GRU encoder and a GRU decoder with teacher forcing during training. The GRU and Bi-GRU baselines use a recurrent encoder followed by a multilayer perceptron head that predicts the full 30-step future. The LSTM and Bi-LSTM baselines use the same prediction head structure but replace the GRU encoder with an LSTM encoder.
 
+All recurrent baselines use hidden dimension 128 and 2 recurrent layers. Their parameter counts are:
+\begin{itemize}
+\item Seq2Seq: 299,778,
+\item GRU: 174,012,
+\item Bi-GRU: 438,460,
+\item LSTM: 223,932,
+\item Bi-LSTM: 571,068.
+\end{itemize}
+
