@@ -21,3 +21,4 @@ PY
   created+=("$output")
 done
 
+printf '%s\n' "${created[@]}"
