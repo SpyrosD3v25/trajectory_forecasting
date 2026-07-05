@@ -17,3 +17,7 @@ loss:
   normalize: true
   teacher_forcing_ratio: 0.5
 
+optimizer:
+  learning_rate: 0.001
+  weight_decay: 0.0001
+
