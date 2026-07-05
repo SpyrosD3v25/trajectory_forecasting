@@ -80,3 +80,4 @@ Artifacts:
 
 ## Note on Invertibility
 
+The learned mapping is numerically invertible in chart space, but the dataset task is not semantically bijective from vessel future back to true vessel past. Forward forecasting can therefore be strong while reverse-history reconstruction remains physically uninformative.
