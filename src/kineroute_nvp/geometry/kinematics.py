@@ -194,3 +194,9 @@ def describe_displacement_chart_choice() -> str:
     )
 
 
+def describe_position_chart_choice() -> str:
+    return (
+        "Exact position chart: [anchor_x, anchor_y, forward_positions(29), lateral_positions(29)]. "
+        "With heading-frame alignment enabled, this represents the future directly in forward/lateral coordinates, "
+        "avoiding displacement accumulation during decoding."
+    )
