@@ -178,3 +178,11 @@ def invertibility_error(chart: torch.Tensor) -> float:
     return float(torch.max(torch.abs(reconstructed - chart)).item())
 
 
+def describe_chart_choice() -> str:
+    return (
+        "Safe polar chart: [anchor_x, anchor_y, step_radii(29), heading_2, wrapped_delta_headings(28)]. "
+        "Zero-length steps keep the previous heading, with the initial undefined heading canonicalized to 0.0. "
+        "This gauge choice preserves exact coordinate reconstruction while avoiding undefined angles."
+    )
+
+
