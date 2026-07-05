@@ -78,3 +78,5 @@ Each row is one fixed-length trajectory sample with 30 historical points and 30 
 
 ## Reproducibility
 
+The dataset construction code, preprocessing pipeline, visualization scripts, and paper-writing notes are maintained in the companion repository.
+
