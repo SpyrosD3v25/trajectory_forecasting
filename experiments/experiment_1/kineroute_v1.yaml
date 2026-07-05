@@ -19,3 +19,12 @@ model:
   hidden_layers: 2
   scale_bound: 1.5
 
+loss:
+  lambda_velocity: 0.1
+  lambda_acceleration: 0.05
+  lambda_turn: 0.05
+  lambda_feasibility: 0.01
+  lambda_reverse: 0.0
+  lambda_position_mse: 0.0
+  feasibility_quantile: 0.995
+
