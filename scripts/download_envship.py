@@ -53,3 +53,21 @@ def build_patterns(keys: list[str], include_context: bool) -> list[str]:
     return patterns
 
 
+def create_alias(remote_root: str, alias_root: str) -> None:
+    source_root = OUT_DIR / remote_root
+    target_root = OUT_DIR / alias_root
+    target_root.mkdir(parents=True, exist_ok=True)
+    for split in ("train", "val", "test"):
+        split_dir = target_root / split
+        split_dir.mkdir(parents=True, exist_ok=True)
+        source_file = source_root / split / "part-000.csv.gz"
+        target_file = split_dir / "part-000.csv.gz"
+        if target_file.exists() or target_file.is_symlink():
+            target_file.unlink()
+        target_file.symlink_to(source_file.resolve())
+    summary_link = target_root / "summary.json"
+    if summary_link.exists() or summary_link.is_symlink():
+        summary_link.unlink()
+    summary_link.symlink_to((source_root / "summary.json").resolve())
+
+
