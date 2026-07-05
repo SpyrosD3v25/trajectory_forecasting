@@ -50,3 +50,5 @@ A lightweight representative mini benchmark for quick experimentation and method
 
 A quality-first compact benchmark with stricter filtering and controlled motion profiles.
 
+This subset also includes:
+
