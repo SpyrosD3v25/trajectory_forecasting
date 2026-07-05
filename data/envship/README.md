@@ -24,3 +24,5 @@ The layout keeps each source in its own top-level directory so new branches can 
 
 ## Forecasting Protocol
 
+All benchmark samples follow the same protocol:
+
