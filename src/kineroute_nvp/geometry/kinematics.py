@@ -86,3 +86,8 @@ def positions_to_chart_numpy(positions: np.ndarray, eps: float = 1e-8) -> np.nda
     return positions_to_chart_torch(tensor, eps=eps).cpu().numpy()
 
 
+def chart_to_positions_numpy(chart: np.ndarray) -> np.ndarray:
+    tensor = torch.as_tensor(chart, dtype=torch.float64)
+    return chart_to_positions_torch(tensor).cpu().numpy()
+
+
