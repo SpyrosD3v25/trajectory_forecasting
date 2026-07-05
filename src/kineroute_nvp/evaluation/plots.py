@@ -27,3 +27,22 @@ def plot_loss_curves(metrics_jsonl: Path, output_path: Path) -> None:
     plt.close(fig)
 
 
+def plot_trajectory_examples(history, future, predicted, output_path: Path, max_examples: int) -> None:
+    examples = min(len(history), max_examples)
+    cols = min(4, examples)
+    rows = (examples + cols - 1) // cols
+    fig, axes = plt.subplots(rows, cols, figsize=(4 * cols, 4 * rows), squeeze=False)
+    for idx in range(rows * cols):
+        ax = axes[idx // cols][idx % cols]
+        if idx >= examples:
+            ax.axis("off")
+            continue
+        ax.plot(history[idx, :, 0], history[idx, :, 1], label="history", color="tab:blue")
+        ax.plot(future[idx, :, 0], future[idx, :, 1], label="true_future", color="tab:green")
+        ax.plot(predicted[idx, :, 0], predicted[idx, :, 1], label="pred_future", color="tab:red")
+        ax.scatter(history[idx, -1, 0], history[idx, -1, 1], color="black", s=18)
+        if idx == 0:
+            ax.legend()
+    fig.tight_layout()
+    fig.savefig(output_path)
+    plt.close(fig)
