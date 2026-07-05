@@ -145,3 +145,10 @@ def load_yaml_defaults(config_path: str | None) -> Dict[str, Any]:
     return defaults
 
 
+def validate_config_path(config_path: str) -> str:
+    path = Path(config_path)
+    if len(path.parts) != 3 or path.parts[0] != "experiments" or path.suffix not in {".yaml", ".yml"}:
+        raise ValueError("Config must live under experiments/<experiment_name>/<run_name>.yaml")
+    return path.parts[1]
+
+
