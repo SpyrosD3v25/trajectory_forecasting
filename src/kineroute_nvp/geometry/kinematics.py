@@ -186,3 +186,11 @@ def describe_chart_choice() -> str:
     )
 
 
+def describe_displacement_chart_choice() -> str:
+    return (
+        "Exact displacement chart: [anchor_x, anchor_y, delta_x(29), delta_y(29)]. "
+        "With heading-frame alignment enabled, delta_x captures forward progress and delta_y captures lateral motion "
+        "without angular discontinuities."
+    )
+
+
