@@ -72,3 +72,35 @@ def evaluate(model, loader, device) -> tuple[dict, dict]:
     return metrics, {"history": history.numpy(), "future": future.numpy(), "predicted": pred.numpy()}
 
 
+def evaluate_normalized(model, loader, device, history_mean, history_std, future_mean, future_std) -> tuple[dict, dict]:
+    histories, futures, preds = [], [], []
+    model.eval()
+    with torch.no_grad():
+        for batch in loader:
+            history = batch["history"].to(device)
+            future = batch["future"].to(device)
+            norm_history = (history - history_mean) / history_std
+            pred_norm = model(norm_history)
+            pred = pred_norm * future_std + future_mean
+            histories.append(history.cpu())
+            futures.append(future.cpu())
+            preds.append(pred.cpu())
+    history = torch.cat(histories)
+    future = torch.cat(futures)
+    pred = torch.cat(preds)
+    metrics = summarize_predictions(
+        history=history,
+        predicted_future=pred,
+        target_future=future,
+        reverse_history=history,
+        dt_seconds=20.0,
+        max_acceleration=1e9,
+        max_turn_rate=1e9,
+    )
+    metrics["ade"] = float(ade(pred, future).item())
+    metrics["fde"] = float(fde(pred, future).item())
+    metrics["reverse_ade"] = 0.0
+    metrics["reverse_fde"] = 0.0
+    return metrics, {"history": history.numpy(), "future": future.numpy(), "predicted": pred.numpy()}
+
+
