@@ -36,3 +36,5 @@ All benchmark samples follow the same protocol:
 
 ### 1. `DMA/benchmark/core`
 
+The main large-scale benchmark release with strict quality control for standardized vessel trajectory prediction.
+
