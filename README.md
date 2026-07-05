@@ -43,3 +43,5 @@ Batch execution stays reproducible through checked-in launchers:
 bash experiments/baselines/run_all.sh
 ```
 
+Each invocation creates exactly one directory:
+
