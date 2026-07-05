@@ -148,3 +148,5 @@ The recurrent baselines all moved into the paper regime once the correct compact
 
 The Kine-Real-NVP epoch trajectory is also notable: the best validation result occurred at epoch 36, well before the 80-epoch schedule completed. This indicates that the compact benchmark is highly compatible with the aligned displacement-chart parameterization and that the model reaches a strong forecasting regime early in training.
 
+Finally, the invertibility diagnostics should be interpreted carefully. The model remained numerically invertible with small reconstruction error in latent chart space, but reverse-history prediction error remained very large. This is not a contradiction. The learned mapping is invertible as a parameterized function, but the benchmark task itself does not imply that a true vessel future uniquely determines the true vessel past in a semantically meaningful one-to-one way.
+
