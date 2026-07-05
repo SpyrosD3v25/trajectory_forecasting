@@ -2,3 +2,5 @@
 
 Research question: can a single routed RealNVP map 30 observed EnvShip vessel points to the next 30 points while retaining an invertible reverse diagnostic?
 
+The model is KineRoute-NVP only. It uses a safe polar kinematic chart, routed affine-coupling blocks over anchor, speed, and steering channels, ADE as the main supervised objective, and velocity/acceleration/turn/feasibility regularizers from AIS-derived kinematics. These terms describe trajectory-motion structure, not full hydrodynamics, currents, or engine physics.
+
