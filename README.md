@@ -12,3 +12,6 @@ Experiments use the official compact paper subsets from:
 
 Local aliases:
 
+- `data/envship/paper_dma_clean_ship_core_lite_v1`
+- `data/envship/paper_noaa_clean_ship_core_lite_v1`
+
