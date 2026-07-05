@@ -88,3 +88,16 @@ def build_parser(defaults: Dict[str, Any] | None = None) -> argparse.ArgumentPar
     return parser
 
 
+def load_yaml_defaults(config_path: str | None) -> Dict[str, Any]:
+    if not config_path:
+        return {}
+    payload = yaml.safe_load(Path(config_path).read_text()) or {}
+    flat = _flatten(payload)
+    defaults = {}
+    for key, value in flat.items():
+        if key in CONFIG_TO_ARG:
+            defaults[CONFIG_TO_ARG[key]] = value
+    defaults["run_name"] = payload.get("run_name")
+    return defaults
+
+
