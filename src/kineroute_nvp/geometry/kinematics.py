@@ -121,3 +121,13 @@ def encode_positions_torch(positions: torch.Tensor, chart_type: str, eps: float 
     raise ValueError(f"Unsupported chart_type: {chart_type}")
 
 
+def decode_chart_torch(chart: torch.Tensor, chart_type: str) -> torch.Tensor:
+    if chart_type == "polar":
+        return chart_to_positions_torch(chart)
+    if chart_type == "displacement":
+        return displacement_chart_to_positions_torch(chart)
+    if chart_type == "position":
+        return position_chart_to_positions_torch(chart)
+    raise ValueError(f"Unsupported chart_type: {chart_type}")
+
+
