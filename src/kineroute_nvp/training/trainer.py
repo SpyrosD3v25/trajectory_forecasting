@@ -25,3 +25,9 @@ from kineroute_nvp.utils.io import append_jsonl, atomic_write_json, environment_
 from kineroute_nvp.utils.seed import set_seed
 
 
+def _device_from_config(name: str) -> torch.device:
+    if name == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    return torch.device(name)
+
+
