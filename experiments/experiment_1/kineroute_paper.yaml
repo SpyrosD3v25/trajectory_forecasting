@@ -51,3 +51,7 @@ training:
   early_stopping_patience: 15
   device: cuda
 
+evaluation:
+  save_prediction_examples: 24
+  evaluate_reverse_mapping: true
+
