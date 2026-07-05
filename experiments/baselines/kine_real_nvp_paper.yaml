@@ -43,3 +43,11 @@ scheduler:
   factor: 0.5
   patience: 8
 
+training:
+  epochs: 80
+  batch_size: 256
+  num_workers: 4
+  checkpoint_every_epochs: 10
+  early_stopping_patience: 999
+  device: cuda
+
