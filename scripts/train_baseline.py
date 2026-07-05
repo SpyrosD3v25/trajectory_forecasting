@@ -27,3 +27,15 @@ from kineroute_nvp.utils.io import append_jsonl, atomic_write_json, environment_
 from kineroute_nvp.utils.seed import set_seed
 
 
+def build_model(args: argparse.Namespace) -> torch.nn.Module:
+    if args.model_name == "gru":
+        return GRUBaseline(hidden_dim=args.hidden_dim, num_layers=args.num_layers, bidirectional=False)
+    if args.model_name == "bigru":
+        return GRUBaseline(hidden_dim=args.hidden_dim, num_layers=args.num_layers, bidirectional=True)
+    if args.model_name == "lstm":
+        return LSTMBaseline(hidden_dim=args.hidden_dim, num_layers=args.num_layers, bidirectional=False)
+    if args.model_name == "bilstm":
+        return LSTMBaseline(hidden_dim=args.hidden_dim, num_layers=args.num_layers, bidirectional=True)
+    return Seq2SeqBaseline(hidden_dim=args.hidden_dim, num_layers=args.num_layers)
+
+
