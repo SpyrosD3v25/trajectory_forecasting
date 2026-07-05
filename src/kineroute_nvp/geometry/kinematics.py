@@ -151,3 +151,7 @@ def decode_chart_numpy(chart: np.ndarray, chart_type: str) -> np.ndarray:
     raise ValueError(f"Unsupported chart_type: {chart_type}")
 
 
+def build_sequence(last_history_point: torch.Tensor, future_positions: torch.Tensor) -> torch.Tensor:
+    return torch.cat([last_history_point.unsqueeze(-2), future_positions], dim=-2)
+
+
