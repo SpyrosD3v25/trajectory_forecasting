@@ -53,3 +53,5 @@ evaluation:
   save_prediction_examples: 8
   evaluate_reverse_mapping: true
 
+output:
+  results_root: results
