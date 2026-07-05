@@ -21,3 +21,5 @@ Combined split sizes:
 - val: `3667`
 - test: `3262`
 
+Download and verify:
+
