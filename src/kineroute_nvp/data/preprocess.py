@@ -79,3 +79,114 @@ def _load_split_frame(raw_root: Path, split: str) -> pd.DataFrame:
     raise FileNotFoundError(f"Missing raw split file under {raw_root / split}: expected part-000.csv or part-000.csv.gz")
 
 
+def prepare_envship_dataset(
+    raw_root: Path | None,
+    processed_root: Path,
+    dt_seconds: float,
+    feasibility_quantile: float,
+    align_to_last_heading: bool = False,
+    chart_type: str = "polar",
+    splits: Iterable[str] = ("train", "val", "test"),
+    raw_roots: Sequence[Path] | None = None,
+    include_ship_classes: Sequence[str] | None = None,
+    quality_tiers: Sequence[str] | None = None,
+) -> PrepareSummary:
+    resolved_raw_roots = [Path(root) for root in raw_roots] if raw_roots else []
+    if raw_root is not None:
+        resolved_raw_roots.insert(0, Path(raw_root))
+    if not resolved_raw_roots:
+        raise ValueError("At least one raw_root must be provided.")
+    processed_root = Path(processed_root)
+    processed_root.mkdir(parents=True, exist_ok=True)
+    split_sizes: Dict[str, int] = {}
+    train_history = None
+    train_future = None
+    train_history_chart = None
+    train_future_chart = None
+
+    for split in splits:
+        frame = pd.concat([_load_split_frame(root, split) for root in resolved_raw_roots], ignore_index=True)
+        if include_ship_classes:
+            frame = frame[frame["ship_class"].isin(include_ship_classes)].reset_index(drop=True)
+        if quality_tiers:
+            frame = frame[frame["quality_tier"].isin(quality_tiers)].reset_index(drop=True)
+        missing = [column for column in REQUIRED_COLUMNS if column not in frame.columns]
+        if missing:
+            raise ValueError(f"Missing required columns in split {split}: {missing}")
+        histories = []
+        futures = []
+        sample_ids = []
+        for _, row in frame[REQUIRED_COLUMNS].iterrows():
+            history = _parse_positions(row, "hist")
+            future = _parse_positions(row, "fut")
+            if align_to_last_heading:
+                history, future = _align_pair_to_last_heading(history, future)
+            histories.append(history)
+            futures.append(future)
+            sample_ids.append(row["sample_id"])
+        history_array = np.stack(histories).astype(np.float32)
+        future_array = np.stack(futures).astype(np.float32)
+        history_chart = encode_positions_numpy(history_array, chart_type=chart_type).astype(np.float32)
+        future_chart = encode_positions_numpy(future_array, chart_type=chart_type).astype(np.float32)
+        np.savez_compressed(
+            processed_root / f"{split}.npz",
+            sample_id=np.asarray(sample_ids),
+            history=history_array,
+            future=future_array,
+            history_chart=history_chart,
+            future_chart=future_chart,
+        )
+        split_sizes[split] = int(history_array.shape[0])
+        if split == "train":
+            train_history = history_array
+            train_future = future_array
+            train_history_chart = history_chart
+            train_future_chart = future_chart
+
+    assert train_history is not None and train_future is not None
+    assert train_history_chart is not None and train_future_chart is not None
+    history_chart_mean = train_history_chart.mean(axis=0)
+    history_chart_std = np.where(train_history_chart.std(axis=0) < 1e-6, 1.0, train_history_chart.std(axis=0))
+    future_chart_mean = train_future_chart.mean(axis=0)
+    future_chart_std = np.where(train_future_chart.std(axis=0) < 1e-6, 1.0, train_future_chart.std(axis=0))
+    normalization = {
+        "history_chart_mean": history_chart_mean.tolist(),
+        "history_chart_std": history_chart_std.tolist(),
+        "future_chart_mean": future_chart_mean.tolist(),
+        "future_chart_std": future_chart_std.tolist(),
+    }
+    thresholds = _compute_thresholds(train_future, train_history, dt_seconds=dt_seconds, quantile=feasibility_quantile)
+
+    normalization_path = processed_root / "normalization.json"
+    thresholds_path = processed_root / "feasibility_thresholds.json"
+    metadata_path = processed_root / "metadata.json"
+    normalization_path.write_text(json.dumps(normalization, indent=2))
+    thresholds_path.write_text(json.dumps(thresholds, indent=2))
+    metadata = {
+        "raw_roots": [str(root) for root in resolved_raw_roots],
+        "processed_root": str(processed_root),
+        "dt_seconds": dt_seconds,
+        "chart": (
+            describe_chart_choice()
+            if chart_type == "polar"
+            else describe_displacement_chart_choice()
+            if chart_type == "displacement"
+            else describe_position_chart_choice()
+        ),
+        "chart_type": chart_type,
+        "split_sizes": split_sizes,
+        "required_columns": REQUIRED_COLUMNS,
+        "align_to_last_heading": align_to_last_heading,
+        "include_ship_classes": list(include_ship_classes) if include_ship_classes else None,
+        "quality_tiers": list(quality_tiers) if quality_tiers else None,
+        "normalization_path": str(normalization_path),
+        "thresholds_path": str(thresholds_path),
+    }
+    metadata_path.write_text(json.dumps(metadata, indent=2))
+    return PrepareSummary(
+        processed_root=processed_root,
+        metadata_path=metadata_path,
+        normalization_path=normalization_path,
+        thresholds_path=thresholds_path,
+        split_sizes=split_sizes,
+    )
