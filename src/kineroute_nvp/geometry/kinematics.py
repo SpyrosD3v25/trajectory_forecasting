@@ -71,3 +71,13 @@ def positions_to_position_chart_torch(positions: torch.Tensor) -> torch.Tensor:
     return torch.cat([anchor, forward, lateral], dim=-1)
 
 
+def position_chart_to_positions_torch(chart: torch.Tensor) -> torch.Tensor:
+    if chart.shape[-1] != 60:
+        raise ValueError(f"Expected chart[..., 60], got {tuple(chart.shape)}")
+    anchor = chart[..., :2]
+    forward = chart[..., 2:31]
+    lateral = chart[..., 31:]
+    rest = torch.stack([forward, lateral], dim=-1)
+    return torch.cat([anchor.unsqueeze(-2), rest], dim=-2)
+
+
