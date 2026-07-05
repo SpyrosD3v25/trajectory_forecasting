@@ -155,3 +155,21 @@ def build_sequence(last_history_point: torch.Tensor, future_positions: torch.Ten
     return torch.cat([last_history_point.unsqueeze(-2), future_positions], dim=-2)
 
 
+def sequence_kinematics(sequence: torch.Tensor, dt_seconds: float, eps: float = 1e-8) -> Dict[str, torch.Tensor]:
+    velocity = (sequence[..., 1:, :] - sequence[..., :-1, :]) / dt_seconds
+    acceleration = (velocity[..., 1:, :] - velocity[..., :-1, :]) / dt_seconds
+    speed = torch.linalg.norm(velocity, dim=-1)
+    raw_heading = torch.atan2(velocity[..., 1], velocity[..., 0])
+    heading = torch.zeros_like(speed)
+    heading[..., 0] = torch.where(speed[..., 0] > eps, raw_heading[..., 0], torch.zeros_like(raw_heading[..., 0]))
+    for idx in range(1, speed.shape[-1]):
+        heading[..., idx] = torch.where(speed[..., idx] > eps, raw_heading[..., idx], heading[..., idx - 1])
+    turn_rate = wrap_angle_torch(heading[..., 1:] - heading[..., :-1]) / dt_seconds
+    return {
+        "velocity": velocity,
+        "acceleration": acceleration,
+        "heading": heading,
+        "turn_rate": turn_rate,
+    }
+
+
