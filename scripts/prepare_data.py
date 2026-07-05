@@ -30,3 +30,7 @@ def main(argv: list[str] | None = None) -> int:
         splits=(args.train_split, args.val_split, args.test_split),
     )
     return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
