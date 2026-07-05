@@ -58,3 +58,5 @@ This subset also includes:
 
 These packages support environment-aware and interaction-aware vessel forecasting on top of the same compact split.
 
+### 5. `DMA/data_raw/dma/incoming/2025-09/aisdk-2025-09-*.zip`
+
