@@ -70,3 +70,7 @@ def main() -> None:
     output_dir = Path(args.output_dir)
     plot_metric(run_dirs, "ADE", output_dir / "val_ade_vs_epoch.png")
     plot_metric(run_dirs, "FDE", output_dir / "val_fde_vs_epoch.png")
+
+
+if __name__ == "__main__":
+    main()
