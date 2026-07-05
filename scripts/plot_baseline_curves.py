@@ -30,3 +30,19 @@ def load_series(run_dir: Path) -> tuple[list[int], list[float], list[float]]:
     return epochs, ades, fdes
 
 
+def prettify_run_name(run_name: str) -> str:
+    cleaned = run_name
+    for suffix in ("_paper_clean", "_paper", "_coords", "_clean"):
+        if cleaned.endswith(suffix):
+            cleaned = cleaned[: -len(suffix)]
+    aliases = {
+        "seq2seq": "Seq2Seq",
+        "gru": "GRU",
+        "bigru": "Bi-GRU",
+        "lstm": "LSTM",
+        "bilstm": "Bi-LSTM",
+        "kine_real_nvp": "Kine-Real-NVP",
+    }
+    return aliases.get(cleaned, cleaned.replace("_", " "))
+
+
