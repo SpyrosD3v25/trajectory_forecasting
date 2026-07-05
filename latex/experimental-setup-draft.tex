@@ -54,3 +54,5 @@ The DMA compact subset contributes 19,500 training windows and the NOAA compact 
 \subsection{Dataset-Specific Preprocessing}
 \label{subsec:dataset_specific_preprocessing}
 
+Each CSV row is one fixed-length vessel-trajectory sample containing 30 historical points and 30 future points. The preprocessing pipeline parses the \texttt{hist\_x\_json}, \texttt{hist\_y\_json}, \texttt{fut\_x\_json}, and \texttt{fut\_y\_json} arrays and stores them in compressed NumPy artifacts for training.
+
