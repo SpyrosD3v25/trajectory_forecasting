@@ -16,3 +16,7 @@ The DMA branch is organized under:
 
 The NOAA branch is organized under:
 
+- `NOAA/benchmark/core/`
+- `NOAA/benchmark/full/`
+- `NOAA/mini_bench/clean_ship_core_lite_v1/`
+
