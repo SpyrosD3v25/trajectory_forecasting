@@ -101,3 +101,8 @@ def displacement_chart_to_positions_numpy(chart: np.ndarray) -> np.ndarray:
     return displacement_chart_to_positions_torch(tensor).cpu().numpy()
 
 
+def positions_to_position_chart_numpy(positions: np.ndarray) -> np.ndarray:
+    tensor = torch.as_tensor(positions, dtype=torch.float64)
+    return positions_to_position_chart_torch(tensor).cpu().numpy()
+
+
