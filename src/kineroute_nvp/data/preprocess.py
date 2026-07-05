@@ -69,3 +69,13 @@ def _align_pair_to_last_heading(history: np.ndarray, future: np.ndarray, eps: fl
     return history @ rotation.T, future @ rotation.T
 
 
+def _load_split_frame(raw_root: Path, split: str) -> pd.DataFrame:
+    csv_path = raw_root / split / "part-000.csv"
+    csv_gz_path = raw_root / split / "part-000.csv.gz"
+    if csv_path.exists():
+        return pd.read_csv(csv_path)
+    if csv_gz_path.exists():
+        return pd.read_csv(csv_gz_path)
+    raise FileNotFoundError(f"Missing raw split file under {raw_root / split}: expected part-000.csv or part-000.csv.gz")
+
+
