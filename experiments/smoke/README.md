@@ -8,3 +8,4 @@ Run it with:
 bash experiments/smoke/run_all.sh
 ```
 
+Expected artifacts land in one timestamped `results/<timestamp>__smoke__cpu_smoke/` directory.
