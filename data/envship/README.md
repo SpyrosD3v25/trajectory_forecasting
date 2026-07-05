@@ -42,3 +42,5 @@ The main large-scale benchmark release with strict quality control for standardi
 
 A more inclusive release that retains additional valid windows beyond the strict core subset.
 
+### 3. `DMA/mini_benchmark/ship_core_lite`
+
