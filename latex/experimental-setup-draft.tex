@@ -101,3 +101,5 @@ Although the mapping is numerically invertible as a function from history-chart 
 \subsection{Training Protocol}
 \label{subsec:training_protocol}
 
+All reported compact-benchmark experiments use 80 epochs, batch size 256, AdamW optimization, learning rate $10^{-3}$, and weight decay $10^{-4}$. The learning-rate scheduler is ReduceLROnPlateau with factor 0.5 and patience 8. For the canonical Kine-Real-NVP run, the experiment YAML sets the early-stopping patience to 999 so that the full 80-epoch schedule is executed while still preserving the same checkpointing and logging interface as the other runs.
+
