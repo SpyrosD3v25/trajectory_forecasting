@@ -29,3 +29,17 @@ def positions_to_chart_torch(positions: torch.Tensor, eps: float = 1e-8) -> torc
     return torch.cat([positions[..., 0, :], radii, headings[..., :1], delta], dim=-1)
 
 
+def chart_to_positions_torch(chart: torch.Tensor) -> torch.Tensor:
+    if chart.shape[-1] != 60:
+        raise ValueError(f"Expected chart[..., 60], got {tuple(chart.shape)}")
+    anchor = chart[..., :2]
+    radii = chart[..., 2:31]
+    heading_2 = chart[..., 31:32]
+    delta = chart[..., 32:]
+    headings = torch.cat([heading_2, heading_2 + torch.cumsum(delta, dim=-1)], dim=-1)
+    displacements = torch.stack([radii * torch.cos(headings), radii * torch.sin(headings)], dim=-1)
+    cumulative = torch.cumsum(displacements, dim=-2)
+    anchors = anchor.unsqueeze(-2)
+    return torch.cat([anchors, anchors + cumulative], dim=-2)
+
+
