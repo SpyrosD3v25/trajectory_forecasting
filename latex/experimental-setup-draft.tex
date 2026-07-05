@@ -108,3 +108,9 @@ The recurrent baselines are trained with normalized coordinates and mean-squared
 \subsection{Evaluation Metrics}
 \label{subsec:evaluation_metrics}
 
+Average Displacement Error is defined as
+\[
+\mathrm{ADE} = \frac{1}{NT} \sum_{i=1}^{N}\sum_{t=1}^{T} \lVert \hat{y}_{i,t} - y_{i,t} \rVert_2,
+\]
+where $N$ is the number of samples, $T=30$ is the forecasting horizon, $y_{i,t}$ is the target future position at step $t$, and $\hat{y}_{i,t}$ is the predicted future position.
+
