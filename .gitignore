@@ -14,6 +14,7 @@ latex/*.aux
 latex/*.log
 latex/*.out
 latex/*.pdf
+!latex/experimental-setup-draft.pdf
 latex/*.synctex.gz
 latex/*.toc
 results/
