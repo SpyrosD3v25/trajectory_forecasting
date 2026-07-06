@@ -72,6 +72,14 @@ Artifacts:
 - experimental setup draft tex: [latex/experimental-setup-draft.tex](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/latex/experimental-setup-draft.tex)
 - experimental setup draft pdf: [latex/experimental-setup-draft.pdf](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/latex/experimental-setup-draft.pdf)
 
+Validation ADE by epoch:
+
+![Validation ADE by Epoch](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/results/baseline_plots/val_ade_vs_epoch.png)
+
+Validation FDE by epoch:
+
+![Validation FDE by Epoch](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/results/baseline_plots/val_fde_vs_epoch.png)
+
 ## Repository Layout
 
 - `src/kineroute_nvp/`: model, preprocessing, training, evaluation
