@@ -68,17 +68,17 @@ Canonical Kine-Real-NVP compact-benchmark run:
 Artifacts:
 
 - run directory: `results/20260705_163634__baselines__kine_real_nvp_paper`
-- comparison plots: `results/baseline_plots/`
+- comparison plots: `plots/`
 - experimental setup draft tex: [latex/experimental-setup-draft.tex](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/latex/experimental-setup-draft.tex)
 - experimental setup draft pdf: [latex/experimental-setup-draft.pdf](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/latex/experimental-setup-draft.pdf)
 
 Validation ADE by epoch:
 
-![Validation ADE by Epoch](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/results/baseline_plots/val_ade_vs_epoch.png)
+![Validation ADE by Epoch](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/plots/val_ade_vs_epoch.png)
 
 Validation FDE by epoch:
 
-![Validation FDE by Epoch](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/results/baseline_plots/val_fde_vs_epoch.png)
+![Validation FDE by Epoch](/home/spirosdev25/Desktop/TLSC/real/trajectory-forecasting/plots/val_fde_vs_epoch.png)
 
 ## Repository Layout
 
