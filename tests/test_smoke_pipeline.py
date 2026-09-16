@@ -30,4 +30,7 @@ def test_smoke_pipeline_runs() -> None:
     assert payload["status"] == "completed"
     assert (result_dir / "checkpoints" / "best.pt").exists()
     assert (result_dir / "checkpoints" / "final.pt").exists()
+    assert (result_dir / "checkpoints" / "epoch_0001.pt").exists()
+    assert (result_dir / "figures" / "val_ade_vs_epoch.png").exists()
+    assert (result_dir / "figures" / "val_fde_vs_epoch.png").exists()
     assert (result_dir / "evaluation" / "metrics.csv").exists()

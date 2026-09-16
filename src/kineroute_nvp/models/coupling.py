@@ -74,3 +74,68 @@ class RoutedCouplingBlock(nn.Module):
         t_scale, t_shift = self.t_affine(torch.cat([a, s], dim=-1))
         t = self._inverse_affine(t_prime, t_scale, t_shift)
         return self._merge(a, s, t)
+
+
+class StandardCouplingBlock(nn.Module):
+    def __init__(self, dim: int, hidden_dim: int, hidden_layers: int, scale_bound: float, flip: bool = False) -> None:
+        super().__init__()
+        if dim < 2:
+            raise ValueError("dim must be at least 2")
+        self.dim = dim
+        self.flip = flip
+        self.left_dim = dim // 2
+        self.right_dim = dim - self.left_dim
+        self.affine = AffineSubnet(self.left_dim, self.right_dim, hidden_dim, hidden_layers, scale_bound)
+
+    def _split(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        if self.flip:
+            x = torch.flip(x, dims=(-1,))
+        left = x[:, : self.left_dim]
+        right = x[:, self.left_dim :]
+        return left, right
+
+    def _merge(self, left: torch.Tensor, right: torch.Tensor) -> torch.Tensor:
+        output = torch.cat([left, right], dim=-1)
+        if self.flip:
+            output = torch.flip(output, dims=(-1,))
+        return output
+
+    @staticmethod
+    def _forward_affine(x: torch.Tensor, log_scale: torch.Tensor, shift: torch.Tensor) -> torch.Tensor:
+        return x * torch.exp(log_scale) + shift
+
+    @staticmethod
+    def _inverse_affine(y: torch.Tensor, log_scale: torch.Tensor, shift: torch.Tensor) -> torch.Tensor:
+        return (y - shift) * torch.exp(-log_scale)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        left, right = self._split(x)
+        scale, shift = self.affine(left)
+        return self._merge(left, self._forward_affine(right, scale, shift))
+
+    def inverse(self, y: torch.Tensor) -> torch.Tensor:
+        left, right = self._split(y)
+        scale, shift = self.affine(left)
+        return self._merge(left, self._inverse_affine(right, scale, shift))
+
+
+class NonInvertibleRoutedBlock(nn.Module):
+    def __init__(self, hidden_dim: int, hidden_layers: int) -> None:
+        super().__init__()
+        self.t_net = _make_mlp(60, 29, hidden_dim, hidden_layers)
+        self.s_net = _make_mlp(60, 29, hidden_dim, hidden_layers)
+        self.a_net = _make_mlp(60, 2, hidden_dim, hidden_layers)
+
+    @staticmethod
+    def _split(x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        return x[:, :2], x[:, 2:31], x[:, 31:]
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        a, s, t = self._split(x)
+        full = torch.cat([a, s, t], dim=-1)
+        # Every update sees its own target values, so these are unconstrained
+        # residual maps rather than analytically invertible triangular couplings.
+        t_prime = t + self.t_net(full)
+        s_prime = s + self.s_net(full)
+        a_prime = a + self.a_net(full)
+        return torch.cat([a_prime, s_prime, t_prime], dim=-1)

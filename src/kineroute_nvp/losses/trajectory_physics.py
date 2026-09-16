@@ -16,6 +16,10 @@ def fde(predicted: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     return torch.linalg.norm(predicted[:, -1, :] - target[:, -1, :], dim=-1).mean()
 
 
+def mse(predicted: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+    return torch.mean((predicted - target) ** 2)
+
+
 def trajectory_loss(
     predicted_future: torch.Tensor,
     target_future: torch.Tensor,

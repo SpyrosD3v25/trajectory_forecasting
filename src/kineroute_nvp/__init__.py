@@ -1,3 +1,3 @@
-from .models.kineroute_nvp import KineRouteNVP
+from .models.kineroute_nvp import KineRouteNVP, NonInvertibleRoutedControl, StandardRealNVP
 
-__all__ = ["KineRouteNVP"]
+__all__ = ["KineRouteNVP", "NonInvertibleRoutedControl", "StandardRealNVP"]

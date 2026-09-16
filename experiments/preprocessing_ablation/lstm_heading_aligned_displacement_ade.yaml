@@ -1,0 +1,49 @@
+run_name: lstm_heading_aligned_displacement_ade
+seed: 0
+
+data:
+  raw_roots:
+    - data/envship/paper_dma_clean_ship_core_lite_v1
+    - data/envship/paper_noaa_clean_ship_core_lite_v1
+  processed_root: data/processed/envship_baseline_paper_clean_coords
+  split_manifest: experiments/compact/split_manifest.json
+  train_split: train
+  val_split: val
+  test_split: test
+  dt_seconds: 20.0
+  history_steps: 30
+  future_steps: 30
+  prepare_if_missing: false
+  preprocessing_mode: heading_aligned_displacement
+
+model:
+  name: lstm
+  hidden_dim: 128
+  num_layers: 2
+
+loss:
+  name: ade
+  normalize: true
+
+optimizer:
+  learning_rate: 0.001
+  weight_decay: 0.0001
+
+scheduler:
+  factor: 0.5
+  patience: 8
+
+training:
+  epochs: 80
+  batch_size: 256
+  num_workers: 4
+  checkpoint_every_epochs: 10
+  early_stopping_patience: 15
+  device: cuda
+
+evaluation:
+  save_prediction_examples: 24
+  evaluate_test: false
+
+output:
+  results_root: results

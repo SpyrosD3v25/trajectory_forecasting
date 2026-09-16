@@ -1,6 +1,6 @@
 # KineRoute-NVP
 
-KineRoute-NVP is a focused research implementation for deterministic short-term vessel trajectory forecasting on EnvShip-Bench. The repository stays intentionally narrow: one model, one experiment interface, one artifact tree.
+KineRoute-NVP is a focused research implementation for deterministic short-term vessel trajectory forecasting on EnvShip-Bench. The repository uses one experiment interface and artifact contract across recurrent, MLP, TCN, Transformer, standard RealNVP, routed invertible, and routed unconstrained controls.
 
 The model learns a supervised invertible map from 30 observed vessel positions to 30 future positions using a routed RealNVP architecture over a heading-aligned displacement chart. Evaluation is reported with Average Displacement Error (ADE) and Final Displacement Error (FDE) in meters.
 
@@ -57,9 +57,20 @@ That directory contains:
 - `figures/`
 - `_results.json`
 
-## Current Baseline Result
+Both training entry points use the same experiment-artifact contract. A
+full-state checkpoint is saved every 10 epochs (the runner does not yet expose
+automatic resume), and each run always contains
+`figures/val_ade_vs_epoch.png` and `figures/val_fde_vs_epoch.png` alongside its
+machine-readable results. See
+[Experiment Artifact Contract](docs/experiment-artifacts.md) for the lifecycle,
+checkpoint contents, run layout, and extension rules for new methods and
+ablations.
 
-Canonical Kine-Real-NVP compact-benchmark run:
+Compact experiments use [one frozen split shared by all five training seeds](docs/compact-split-protocol.md).
+
+## Historical Baseline Artifact
+
+The following pre-audit artifact remains available for inspection:
 
 - best epoch: `36`
 - best val ADE/FDE: `50.2624 / 110.8145`
@@ -79,6 +90,13 @@ Validation ADE by epoch:
 Validation FDE by epoch:
 
 ![Validation FDE by Epoch](plots/val_fde_vs_epoch.png)
+
+It is **not** an official result for the current controlled study: it predates
+artifact schema 2, exact dirty-worktree source fingerprints, strict processed
+array fingerprints, and the finalized normalization/test-selection protocol.
+Do not mix it with new ablation tables or cite it as the current benchmark.
+Official results are accepted only through the strict experiment-specific
+aggregators described in `todo.md`.
 
 ## Repository Layout
 

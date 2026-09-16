@@ -7,6 +7,7 @@ def test_baseline_yaml_parsing() -> None:
     assert args.experiment_name == "baselines"
     assert config["run_name"] == "gru_coords_paper"
     assert config["model"]["name"] == "gru"
+    assert config["training"]["checkpoint_every_epochs"] == 10
     assert config["data"]["raw_roots"] == [
         "data/envship/paper_dma_clean_ship_core_lite_v1",
         "data/envship/paper_noaa_clean_ship_core_lite_v1",
