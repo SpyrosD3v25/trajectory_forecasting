@@ -14,6 +14,7 @@ CONFIG_TO_ARG = {
     "data.raw_root": "data_root",
     "data.raw_roots": "raw_roots",
     "data.processed_root": "processed_root",
+    "data.split_manifest": "split_manifest",
     "data.train_split": "train_split",
     "data.val_split": "val_split",
     "data.test_split": "test_split",
@@ -21,16 +22,32 @@ CONFIG_TO_ARG = {
     "data.history_steps": "history_steps",
     "data.future_steps": "future_steps",
     "data.prepare_if_missing": "prepare_if_missing",
+    "data.preprocessing_mode": "preprocessing_mode",
     "data.align_to_last_heading": "align_to_last_heading",
     "data.chart_type": "chart_type",
+    "data.include_ship_classes": "include_ship_classes",
+    "data.quality_tiers": "quality_tiers",
     "data.max_train_samples": "max_train_samples",
     "data.max_val_samples": "max_val_samples",
     "data.max_test_samples": "max_test_samples",
     "model.name": "model_name",
     "model.num_routed_blocks": "num_routed_blocks",
     "model.hidden_dim": "hidden_dim",
+    "model.num_layers": "num_layers",
     "model.hidden_layers": "hidden_layers",
+    "model.num_blocks": "num_blocks",
     "model.scale_bound": "scale_bound",
+    "model.velocity_points": "velocity_points",
+    "model.residual_blocks": "residual_blocks",
+    "model.levels": "levels",
+    "model.kernel_size": "kernel_size",
+    "model.d_model": "d_model",
+    "model.num_heads": "num_heads",
+    "model.dim_feedforward": "dim_feedforward",
+    "model.dropout": "dropout",
+    "loss.name": "loss_name",
+    "loss.normalize": "normalize",
+    "loss.teacher_forcing_ratio": "teacher_forcing_ratio",
     "loss.lambda_velocity": "lambda_velocity",
     "loss.lambda_acceleration": "lambda_acceleration",
     "loss.lambda_turn": "lambda_turn",
@@ -53,6 +70,7 @@ CONFIG_TO_ARG = {
     "training.device": "device",
     "evaluation.save_prediction_examples": "save_prediction_examples",
     "evaluation.evaluate_reverse_mapping": "evaluate_reverse_mapping",
+    "evaluation.evaluate_test": "evaluate_test",
     "output.results_root": "results_root",
 }
 
@@ -87,8 +105,10 @@ def build_parser(defaults: Dict[str, Any] | None = None) -> argparse.ArgumentPar
     parser.add_argument("--run-name", default=defaults.get("run_name"))
     parser.add_argument("--seed", type=int, default=defaults.get("seed", 42))
     parser.add_argument("--data-root", default=defaults.get("data_root"))
+    parser.add_argument("--raw-root", dest="data_root", default=argparse.SUPPRESS)
     parser.add_argument("--raw-roots", nargs="*", default=defaults.get("raw_roots"))
     parser.add_argument("--processed-root", default=defaults.get("processed_root"))
+    parser.add_argument("--split-manifest", default=defaults.get("split_manifest"))
     parser.add_argument("--train-split", default=defaults.get("train_split", "train"))
     parser.add_argument("--val-split", default=defaults.get("val_split", "val"))
     parser.add_argument("--test-split", default=defaults.get("test_split", "test"))
@@ -96,16 +116,36 @@ def build_parser(defaults: Dict[str, Any] | None = None) -> argparse.ArgumentPar
     parser.add_argument("--history-steps", type=int, default=defaults.get("history_steps", 30))
     parser.add_argument("--future-steps", type=int, default=defaults.get("future_steps", 30))
     parser.add_argument("--prepare-if-missing", type=_str2bool, default=defaults.get("prepare_if_missing", True))
+    parser.add_argument(
+        "--preprocessing-mode",
+        choices=["raw", "heading_aligned", "heading_aligned_displacement"],
+        default=defaults.get("preprocessing_mode"),
+    )
     parser.add_argument("--align-to-last-heading", type=_str2bool, default=defaults.get("align_to_last_heading", False))
     parser.add_argument("--chart-type", choices=["polar", "displacement", "position"], default=defaults.get("chart_type", "polar"))
+    parser.add_argument("--include-ship-classes", nargs="*", default=defaults.get("include_ship_classes"))
+    parser.add_argument("--quality-tiers", nargs="*", default=defaults.get("quality_tiers"))
     parser.add_argument("--max-train-samples", type=int, default=defaults.get("max_train_samples"))
     parser.add_argument("--max-val-samples", type=int, default=defaults.get("max_val_samples"))
     parser.add_argument("--max-test-samples", type=int, default=defaults.get("max_test_samples"))
     parser.add_argument("--model-name", default=defaults.get("model_name", "kineroute_nvp"))
     parser.add_argument("--num-routed-blocks", type=int, default=defaults.get("num_routed_blocks", 6))
+    parser.add_argument("--num-blocks", type=int, default=defaults.get("num_blocks"))
     parser.add_argument("--hidden-dim", type=int, default=defaults.get("hidden_dim", 256))
+    parser.add_argument("--num-layers", type=int, default=defaults.get("num_layers", 2))
     parser.add_argument("--hidden-layers", type=int, default=defaults.get("hidden_layers", 2))
     parser.add_argument("--scale-bound", type=float, default=defaults.get("scale_bound", 1.5))
+    parser.add_argument("--velocity-points", type=int, default=defaults.get("velocity_points", 2))
+    parser.add_argument("--residual-blocks", type=int, default=defaults.get("residual_blocks"))
+    parser.add_argument("--levels", type=int, default=defaults.get("levels"))
+    parser.add_argument("--kernel-size", type=int, default=defaults.get("kernel_size", 3))
+    parser.add_argument("--d-model", type=int, default=defaults.get("d_model"))
+    parser.add_argument("--num-heads", type=int, default=defaults.get("num_heads", 4))
+    parser.add_argument("--dim-feedforward", type=int, default=defaults.get("dim_feedforward"))
+    parser.add_argument("--dropout", type=float, default=defaults.get("dropout", 0.1))
+    parser.add_argument("--loss-name", choices=["mse", "ade", "kineroute"], default=defaults.get("loss_name"))
+    parser.add_argument("--normalize", type=_str2bool, default=defaults.get("normalize", True))
+    parser.add_argument("--teacher-forcing-ratio", type=float, default=defaults.get("teacher_forcing_ratio", 0.0))
     parser.add_argument("--lambda-velocity", type=float, default=defaults.get("lambda_velocity", 0.10))
     parser.add_argument("--lambda-acceleration", type=float, default=defaults.get("lambda_acceleration", 0.05))
     parser.add_argument("--lambda-turn", type=float, default=defaults.get("lambda_turn", 0.05))
@@ -114,10 +154,10 @@ def build_parser(defaults: Dict[str, Any] | None = None) -> argparse.ArgumentPar
     parser.add_argument("--lambda-position-mse", type=float, default=defaults.get("lambda_position_mse", 0.0))
     parser.add_argument("--lambda-fde", type=float, default=defaults.get("lambda_fde", 0.0))
     parser.add_argument("--feasibility-quantile", type=float, default=defaults.get("feasibility_quantile", 0.995))
-    parser.add_argument("--optimizer-name", default=defaults.get("optimizer_name", "adamw"))
+    parser.add_argument("--optimizer-name", choices=["adamw"], default=defaults.get("optimizer_name", "adamw"))
     parser.add_argument("--learning-rate", type=float, default=defaults.get("learning_rate", 1e-3))
     parser.add_argument("--weight-decay", type=float, default=defaults.get("weight_decay", 1e-4))
-    parser.add_argument("--scheduler-name", default=defaults.get("scheduler_name", "reduce_on_plateau"))
+    parser.add_argument("--scheduler-name", choices=["reduce_on_plateau"], default=defaults.get("scheduler_name", "reduce_on_plateau"))
     parser.add_argument("--scheduler-factor", type=float, default=defaults.get("scheduler_factor", 0.5))
     parser.add_argument("--scheduler-patience", type=int, default=defaults.get("scheduler_patience", 8))
     parser.add_argument("--epochs", type=int, default=defaults.get("epochs", 80))
@@ -128,6 +168,7 @@ def build_parser(defaults: Dict[str, Any] | None = None) -> argparse.ArgumentPar
     parser.add_argument("--device", default=defaults.get("device", "auto"))
     parser.add_argument("--save-prediction-examples", type=int, default=defaults.get("save_prediction_examples", 24))
     parser.add_argument("--evaluate-reverse-mapping", type=_str2bool, default=defaults.get("evaluate_reverse_mapping", True))
+    parser.add_argument("--evaluate-test", type=_str2bool, default=defaults.get("evaluate_test", True))
     parser.add_argument("--results-root", default=defaults.get("results_root", "results"))
     return parser
 
@@ -171,15 +212,105 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return args
 
 
+def validate_resolved_config(config: dict[str, Any]) -> None:
+    supported_models = {
+        "dead_reckoning", "gru", "bigru", "lstm", "bilstm", "seq2seq",
+        "mlp", "resnet", "tcn", "transformer_nar", "realnvp",
+        "kineroute_nvp", "routed_realnvp", "non_invertible_routed",
+    }
+    model = config["model"]
+    if model["name"] not in supported_models:
+        raise ValueError(f"Unsupported model.name={model['name']!r}")
+    if config["optimizer"]["name"] != "adamw":
+        raise ValueError("Only optimizer.name=adamw is currently implemented.")
+    if config["scheduler"]["name"] != "reduce_on_plateau":
+        raise ValueError("Only scheduler.name=reduce_on_plateau is currently implemented.")
+    chart_models = {"kineroute_nvp", "routed_realnvp", "realnvp", "non_invertible_routed"}
+    if config["model"]["name"] in chart_models and not config["loss"]["normalize"]:
+        raise ValueError("Chart-space models currently require loss.normalize=true; unnormalized chart execution is not implemented.")
+    if config["training"]["epochs"] < 1:
+        raise ValueError("training.epochs must be at least 1")
+    if config["training"]["batch_size"] < 1:
+        raise ValueError("training.batch_size must be at least 1")
+    if config["training"]["checkpoint_every_epochs"] < 1:
+        raise ValueError("training.checkpoint_every_epochs must be at least 1")
+    if config["training"]["early_stopping_patience"] < 0:
+        raise ValueError("training.early_stopping_patience cannot be negative")
+    if config["training"]["num_workers"] < 0:
+        raise ValueError("training.num_workers cannot be negative")
+    if config["data"]["history_steps"] != 30 or config["data"]["future_steps"] != 30:
+        raise ValueError("This repository currently supports only the 30 -> 30 protocol")
+    if config["data"]["dt_seconds"] <= 0:
+        raise ValueError("data.dt_seconds must be positive")
+    for key in ("max_train_samples", "max_val_samples", "max_test_samples"):
+        value = config["data"].get(key)
+        if value is not None and value < 1:
+            raise ValueError(f"data.{key} must be positive when provided")
+    for key in ("hidden_dim", "num_layers", "hidden_layers", "num_heads", "kernel_size", "velocity_points"):
+        if model.get(key) is not None and model[key] < 1:
+            raise ValueError(f"model.{key} must be positive")
+    for key in ("num_blocks", "num_routed_blocks", "residual_blocks", "levels", "d_model", "dim_feedforward"):
+        if model.get(key) is not None and model[key] < 1:
+            raise ValueError(f"model.{key} must be positive when provided")
+    if not 0.0 <= model["dropout"] < 1.0:
+        raise ValueError("model.dropout must satisfy 0 <= dropout < 1")
+    if model["velocity_points"] < 2:
+        raise ValueError("model.velocity_points must be at least 2")
+    if model["scale_bound"] <= 0:
+        raise ValueError("model.scale_bound must be positive")
+    if model["name"] == "transformer_nar":
+        d_model = model.get("d_model") or model["hidden_dim"]
+        if d_model % model["num_heads"] != 0:
+            raise ValueError("Transformer d_model must be divisible by num_heads")
+    if config["optimizer"]["learning_rate"] <= 0 or config["optimizer"]["weight_decay"] < 0:
+        raise ValueError("Optimizer learning_rate must be positive and weight_decay non-negative")
+    if not 0.0 < config["scheduler"]["factor"] < 1.0 or config["scheduler"]["patience"] < 0:
+        raise ValueError("Scheduler factor must be in (0, 1) and patience non-negative")
+    if not 0.0 <= config["loss"]["teacher_forcing_ratio"] <= 1.0:
+        raise ValueError("loss.teacher_forcing_ratio must be in [0, 1]")
+    if config["loss"]["teacher_forcing_ratio"] != 0.0 and model["name"] != "seq2seq":
+        raise ValueError("teacher forcing is only implemented for model.name=seq2seq")
+    for key in ("lambda_velocity", "lambda_acceleration", "lambda_turn", "lambda_feasibility", "lambda_reverse", "lambda_position_mse", "lambda_fde"):
+        if config["loss"][key] < 0.0:
+            raise ValueError(f"loss.{key} must be non-negative")
+    if not 0.0 < config["loss"]["feasibility_quantile"] < 1.0:
+        raise ValueError("loss.feasibility_quantile must be in (0, 1)")
+    if config["evaluation"]["save_prediction_examples"] < 1:
+        raise ValueError("evaluation.save_prediction_examples must be positive")
+    if config["loss"].get("lambda_reverse", 0.0) != 0.0 and model["name"] not in {"kineroute_nvp", "routed_realnvp", "realnvp"}:
+        raise ValueError("A nonzero reverse loss requires an invertible chart model")
+
+
 def args_to_config(args: argparse.Namespace) -> dict:
     raw_roots = args.raw_roots or ([] if args.data_root is None else [args.data_root])
-    return {
+    preprocessing_mode = args.preprocessing_mode
+    if preprocessing_mode is None:
+        if args.align_to_last_heading and args.chart_type == "displacement":
+            preprocessing_mode = "heading_aligned_displacement"
+        elif args.align_to_last_heading:
+            preprocessing_mode = "heading_aligned"
+        else:
+            preprocessing_mode = "raw"
+    if preprocessing_mode == "raw":
+        align_to_last_heading = False
+        chart_type = "position"
+    elif preprocessing_mode == "heading_aligned":
+        align_to_last_heading = True
+        chart_type = "position"
+    else:
+        align_to_last_heading = True
+        chart_type = "displacement"
+    loss_name = args.loss_name
+    if loss_name is None:
+        loss_name = "kineroute" if args.model_name in {"kineroute_nvp", "routed_realnvp", "realnvp"} else "mse"
+    config = {
         "run_name": args.run_name,
         "seed": args.seed,
         "data": {
             "raw_root": args.data_root,
             "raw_roots": raw_roots,
             "processed_root": args.processed_root,
+            "split_manifest": args.split_manifest,
             "train_split": args.train_split,
             "val_split": args.val_split,
             "test_split": args.test_split,
@@ -187,8 +318,11 @@ def args_to_config(args: argparse.Namespace) -> dict:
             "history_steps": args.history_steps,
             "future_steps": args.future_steps,
             "prepare_if_missing": args.prepare_if_missing,
-            "align_to_last_heading": args.align_to_last_heading,
-            "chart_type": args.chart_type,
+            "preprocessing_mode": preprocessing_mode,
+            "align_to_last_heading": align_to_last_heading,
+            "chart_type": chart_type,
+            "include_ship_classes": args.include_ship_classes,
+            "quality_tiers": args.quality_tiers,
             "max_train_samples": args.max_train_samples,
             "max_val_samples": args.max_val_samples,
             "max_test_samples": args.max_test_samples,
@@ -196,11 +330,24 @@ def args_to_config(args: argparse.Namespace) -> dict:
         "model": {
             "name": args.model_name,
             "num_routed_blocks": args.num_routed_blocks,
+            "num_blocks": args.num_blocks,
             "hidden_dim": args.hidden_dim,
+            "num_layers": args.num_layers,
             "hidden_layers": args.hidden_layers,
             "scale_bound": args.scale_bound,
+            "velocity_points": args.velocity_points,
+            "residual_blocks": args.residual_blocks,
+            "levels": args.levels,
+            "kernel_size": args.kernel_size,
+            "d_model": args.d_model,
+            "num_heads": args.num_heads,
+            "dim_feedforward": args.dim_feedforward,
+            "dropout": args.dropout,
         },
         "loss": {
+            "name": loss_name,
+            "normalize": args.normalize,
+            "teacher_forcing_ratio": args.teacher_forcing_ratio,
             "lambda_velocity": args.lambda_velocity,
             "lambda_acceleration": args.lambda_acceleration,
             "lambda_turn": args.lambda_turn,
@@ -231,11 +378,14 @@ def args_to_config(args: argparse.Namespace) -> dict:
         "evaluation": {
             "save_prediction_examples": args.save_prediction_examples,
             "evaluate_reverse_mapping": args.evaluate_reverse_mapping,
+            "evaluate_test": args.evaluate_test,
         },
         "output": {
             "results_root": args.results_root,
         },
     }
+    validate_resolved_config(config)
+    return config
 
 
 def config_summary(args: argparse.Namespace) -> str:

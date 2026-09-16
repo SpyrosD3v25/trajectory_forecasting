@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import platform
@@ -44,6 +45,29 @@ def get_git_commit(cwd: Path) -> str | None:
         )
     except Exception:
         return None
+
+
+def runtime_source_identity(repo_root: Path) -> dict[str, Any]:
+    """Fingerprint the exact Python implementation used by a training run."""
+    root = Path(repo_root).resolve()
+    paths = sorted((root / "src").rglob("*.py"))
+    entrypoint = root / "scripts" / "train.py"
+    if entrypoint.is_file():
+        paths.append(entrypoint)
+    digest = hashlib.sha256()
+    relative_paths: list[str] = []
+    for path in paths:
+        relative = str(path.relative_to(root))
+        relative_paths.append(relative)
+        digest.update(relative.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return {
+        "sha256": digest.hexdigest(),
+        "file_count": len(relative_paths),
+        "files": relative_paths,
+    }
 
 
 def environment_snapshot() -> dict:

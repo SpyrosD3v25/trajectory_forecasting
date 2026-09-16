@@ -1,0 +1,117 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=18mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist[itemize]{leftmargin=5mm,itemsep=1.7pt,topsep=3pt}
+\pagestyle{empty}
+
+\begin{document}
+
+{\Large\bfseries Trajectory Preprocessing}\par
+
+Each sample contains 30 observed vessel positions and 30 future positions,
+\[
+H=(x_1,\ldots,x_{30}), \qquad
+Y=(y_1,\ldots,y_{30}),
+\]
+where every \(x_t,y_t\in\mathbb{R}^2\).
+
+The transformed representation describes the trajectory relative to the vessel's \textbf{last observed position} and \textbf{latest observed direction of motion}. Both references are obtained from the observed history \(H\) and are then used unchanged for the future \(Y\).
+
+The last observed position is \(x_{30}\). Every position \(p\) is expressed relative to it as
+\[
+p-x_{30}.
+\]
+The observation therefore ends at
+\[
+x_{30}-x_{30}=(0,0),
+\]
+and future positions describe where the vessel moves relative to the point where observation ended.
+
+Compass orientation is removed in the same way. The vessel's latest observed direction is obtained from consecutive history positions,
+\[
+\Delta x_t=x_t-x_{t-1},
+\qquad t=2,\ldots,30.
+\]
+Starting from the end of the history and moving backward, we take the first displacement satisfying
+\[
+\|\Delta x_t\|_2>10^{-8}.
+\]
+Its heading is
+\[
+\theta=
+\operatorname{atan2}
+(\Delta x_{t,y},\Delta x_{t,x}).
+\]
+If no such displacement exists, \(\theta=0\).
+
+The trajectory is rotated so this direction points along the positive \(x\)-axis:
+\[
+\tilde p=R(-\theta)(p-x_{30}),
+\]
+where
+\[
+R(\phi)=
+\begin{bmatrix}
+\cos\phi & -\sin\phi\\
+\sin\phi & \cos\phi
+\end{bmatrix}.
+\]
+After this transformation, every trajectory is viewed from the same position and direction: the observation ends at \((0,0)\), with the vessel facing along the positive \(x\)-axis.
+
+The aligned positions can be used directly. Alternatively, they can be represented by how the vessel moves from one aligned point to the next. For an aligned trajectory
+\[
+(q_1,\ldots,q_{30}),
+\]
+we store
+\[
+d_1=q_1,
+\qquad
+d_t=q_t-q_{t-1},
+\quad t=2,\ldots,30.
+\]
+The first point is kept so no positional information is lost. For the future trajectory, \(d_1\) is the first future position relative to \(x_{30}\); every following value is the movement between two consecutive future positions.
+
+This gives the three representations used by the experiment system: \textbf{raw coordinates}, \textbf{heading-aligned positions}, and \textbf{heading-aligned displacements}.
+
+The transformation is reversible. Displacements recover aligned positions through
+\[
+q_1=d_1,
+\qquad
+q_t=q_{t-1}+d_t,
+\]
+and aligned positions return to the original coordinates through
+\[
+p=R(\theta)q+x_{30}.
+\]
+
+Normalization is applied after this representation is formed and is handled separately, since ordinary trajectory models and chart-based flow models use different normalization layouts.
+
+\newpage
+{\large\bfseries Specs}\par
+
+\begin{itemize}
+\item Observed trajectory: \textbf{30 positions}
+\item Future trajectory: \textbf{30 positions}
+\item Position dimension: \textbf{2}
+\item Sampling interval: \textbf{20 s}
+\item Last observed reference point: \(\mathbf{x_{30}}\)
+\item Consecutive history displacements available for heading: \textbf{29}
+\item Minimum displacement norm accepted as motion: \(\mathbf{10^{-8}}\)
+\item Heading fallback when all observed displacements are below the threshold: \(\mathbf{0}\) rad
+\item Forward alignment rotation: \(\mathbf{-\theta}\)
+\item Inverse rotation: \(\mathbf{+\theta}\)
+\item Aligned final observed position: \(\mathbf{(0,0)}\)
+\item Heading-aligned displacement sequence: \textbf{30 two-dimensional values}
+\item Displacement sequence contents: \textbf{1 initial aligned position + 29 consecutive displacements}
+\item Representation shape before any chart conversion: \(\mathbf{30\times2}\)
+\item Raw representation shape: \(\mathbf{30\times2}\)
+\item Preprocessing output dtype in the implementation: \textbf{float32}
+\end{itemize}
+
+\end{document}

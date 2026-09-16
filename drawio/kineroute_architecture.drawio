@@ -1,0 +1,183 @@
+<mxfile host="app.diagrams.net" modified="2026-07-10T12:00:00Z" agent="Codex" version="24.7.17">
+  <diagram id="coupling-architecture" name="Coupling Architecture">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title1" value="KineRoute-NVP Routed Coupling Split" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="obs" value="Observed history&#xa;30 points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="chart" value="Heading-aligned&#xa;chart encoding" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="230" y="120" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="split" value="Future chart tensor&#xa;split into a | s | t" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="a" value="a&#xa;anchor&#xa;2 dims" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="700" y="60" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="s" value="s&#xa;steering/speed&#xa;29 dims" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="700" y="170" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="t" value="t&#xa;target branch&#xa;29 dims" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="700" y="280" width="110" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="t_aff" value="1. [a, s] -&gt; t affine subnet&#xa;predict scale + shift for t" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="880" y="275" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="s_aff" value="2. [a, t'] -&gt; s affine subnet&#xa;predict scale + shift for s" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="880" y="165" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a_aff" value="3. [s', t'] -&gt; a affine subnet&#xa;predict scale + shift for a" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="880" y="55" width="240" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="merge" value="Merge a', s', t'&#xa;invertible prediction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="150" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="decode" value="Decode chart&#xa;to 30 future positions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="150" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="note1" value="Minimal code mapping from&#xa;src/kineroute_nvp/models/coupling.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="320" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="obs" target="chart" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="chart" target="split" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="split" target="a" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="split" target="s" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="split" target="t" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="t" target="t_aff" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="s" target="t_aff" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="a" target="t_aff" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="t_aff" target="s_aff" style="endArrow=block;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="a" target="s_aff" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="s_aff" target="a_aff" style="endArrow=block;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="t_aff" target="a_aff" style="endArrow=block;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="a_aff" target="merge" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="s_aff" target="merge" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="t_aff" target="merge" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="merge" target="decode" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="training-period" name="Training Period">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title2" value="Whole Training Period / Split Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="raw" value="Raw EnvShip shards&#xa;DMA + NOAA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="protocol" value="Protocol per sample&#xa;30 history + 30 future&#xa;20 s step" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="270" y="120" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="splitdata" value="Official split&#xa;train 29,635&#xa;val 3,667&#xa;test 3,262" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="510" y="110" width="190" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="pre" value="Preprocess&#xa;align to last heading&#xa;encode chart" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="760" y="120" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="norm" value="Train-only statistics&#xa;normalization + feasibility&#xa;thresholds" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="120" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="epoch" value="Training epochs&#xa;shuffle train only&#xa;validate every epoch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="120" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="best" value="Keep best checkpoint&#xa;by validation ADE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="250" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="final" value="Final test evaluation&#xa;ADE / FDE + reverse metrics&#xa;plots + artifacts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="380" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="trainlane" value="Train split" style="swimlane;html=1;rounded=1;horizontal=0;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="520" y="280" width="220" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="vallane" value="Val split" style="swimlane;html=1;rounded=1;horizontal=0;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="770" y="280" width="220" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="testlane" value="Test split" style="swimlane;html=1;rounded=1;horizontal=0;startSize=30;fillColor=#f5f5f5;strokeColor=#666666;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="280" width="220" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="trainuse" value="Used for fitting&#xa;+ statistics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" vertex="1" parent="trainlane">
+          <mxGeometry x="30" y="70" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="valuse" value="Used for model&#xa;selection / early stop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" vertex="1" parent="vallane">
+          <mxGeometry x="30" y="70" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="testuse" value="Used once for&#xa;final report" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=15;" vertex="1" parent="testlane">
+          <mxGeometry x="30" y="70" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="note2" value="Based on README + preprocess/trainer flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="260" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="f1" edge="1" parent="1" source="raw" target="protocol" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f2" edge="1" parent="1" source="protocol" target="splitdata" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f3" edge="1" parent="1" source="splitdata" target="pre" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f4" edge="1" parent="1" source="pre" target="norm" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f5" edge="1" parent="1" source="norm" target="epoch" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f6" edge="1" parent="1" source="epoch" target="best" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f7" edge="1" parent="1" source="best" target="final" style="endArrow=block;html=1;rounded=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f8" edge="1" parent="1" source="splitdata" target="trainlane" style="endArrow=block;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f9" edge="1" parent="1" source="splitdata" target="vallane" style="endArrow=block;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="f10" edge="1" parent="1" source="splitdata" target="testlane" style="endArrow=block;html=1;rounded=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

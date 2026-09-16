@@ -6,13 +6,15 @@ data:
     - data/envship/paper_dma_clean_ship_core_lite_v1
     - data/envship/paper_noaa_clean_ship_core_lite_v1
   processed_root: data/processed/envship_paper_clean_aligned_disp
+  split_manifest: experiments/compact/split_manifest.json
   train_split: train
   val_split: val
   test_split: test
   dt_seconds: 20.0
   history_steps: 30
   future_steps: 30
-  prepare_if_missing: true
+  prepare_if_missing: false
+  preprocessing_mode: heading_aligned_displacement
   align_to_last_heading: true
   chart_type: displacement
 
@@ -24,6 +26,7 @@ model:
   scale_bound: 1.5
 
 loss:
+  name: kineroute
   lambda_velocity: 0.0
   lambda_acceleration: 0.0
   lambda_turn: 0.0

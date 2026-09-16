@@ -1,0 +1,435 @@
+%PDF-1.4
+%AAAA ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R /F3 4 0 R /F4 5 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Times-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/BaseFont /Times-Roman /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+>>
+endobj
+5 0 obj
+<<
+/BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
+>>
+endobj
+6 0 obj
+<<
+/Contents 11 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 10 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+7 0 obj
+<<
+/Contents 12 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 10 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+8 0 obj
+<<
+/PageMode /UseNone /Pages 10 0 R /Type /Catalog
+>>
+endobj
+9 0 obj
+<<
+/Author (\(anonymous\)) /CreationDate (D:20260916204818+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260916204818+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (Trajectory Preprocessing) /Trapped /False
+>>
+endobj
+10 0 obj
+<<
+/Count 2 /Kids [ 6 0 R 7 0 R ] /Type /Pages
+>>
+endobj
+11 0 obj
+<<
+/Length 6270
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 51.35433 776.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 3 Tm /F2 17 Tf 20 TL (Trajectory Preprocessing) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 758.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (Each sample contains 30 observed vessel positions and 30 future positions,) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 744.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 137.9235 0 Td (H = \(x_1, ..., x_30\), Y = \(y_1, ..., y_30\)) Tj T* -137.9235 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 727.4047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (where every x_t and y_t is a two-dimensional position.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 698.6047 cm
+q
+BT 1 0 0 1 0 13.5 Tm 11.4 TL /F3 9.3 Tf 0 0 0 rg (The transformed representation describes the trajectory relative to the vessel's ) Tj /F2 9.3 Tf (last observed position) Tj /F3 9.3 Tf ( and ) Tj /F2 9.3 Tf (latest observed direction) Tj T* (of motion) Tj /F3 9.3 Tf (. Both references are obtained from the observed history H and are then used unchanged for the future Y.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 681.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (The last observed position is x_30. Every position p is expressed relative to it as) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 667.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 225.6435 0 Td (p - x_30) Tj T* -225.6435 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 649.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (The observation therefore ends at) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 635.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 194.6835 0 Td (x_30 - x_30 = \(0, 0\)) Tj T* -194.6835 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 618.4047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (and future positions describe where the vessel moves relative to the point where observation ended.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 589.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13.5 Tm /F3 9.3 Tf 11.4 TL (Compass orientation is removed in the same way. The vessel's latest observed direction is obtained from consecutive history) Tj T* (positions,) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 575.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 140.5035 0 Td (delta x_t = x_t - x_\(t-1\), t = 2, ..., 30) Tj T* -140.5035 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 558.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (Starting from the end of the history and moving backward, we take the first displacement satisfying) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 544.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 186.9435 0 Td (||delta x_t||_2 > 10^-8) Tj T* -186.9435 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 526.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (Its heading is) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 512.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 135.3435 0 Td (theta = atan2\(delta x_\(t,y\), delta x_\(t,x\)\)) Tj T* -135.3435 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 495.4047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (If no such displacement exists, theta = 0.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 478.0047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (The trajectory is rotated so this direction points along the positive x-axis:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 464.0047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 171.4635 0 Td (p_tilde = R\(-theta\)\(p - x_30\)) Tj T* -171.4635 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 446.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (where) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 432.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 106.9635 0 Td (R\(phi\) = [[cos\(phi\), -sin\(phi\)], [sin\(phi\), cos\(phi\)]]) Tj T* -106.9635 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 403.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13.5 Tm /F3 9.3 Tf 11.4 TL (After this transformation, every trajectory is viewed from the same position and direction: the observation ends at \(0, 0\), with the) Tj T* (vessel facing along the positive x-axis.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 375.0047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13.5 Tm /F3 9.3 Tf 11.4 TL -0.098232 Tw (The aligned positions can be used directly. Alternatively, they can be represented by how the vessel moves from one aligned point to) Tj T* 0 Tw (the next. For an aligned trajectory) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 361.0047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 205.0035 0 Td (\(q_1, ..., q_30\)) Tj T* -205.0035 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 343.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (we store) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 329.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 127.6035 0 Td (d_1 = q_1, d_t = q_t - q_\(t-1\), t = 2, ..., 30) Tj T* -127.6035 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 300.8047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13.5 Tm /F3 9.3 Tf 11.4 TL (The first point is kept so no positional information is lost. For the future trajectory, d_1 is the first future position relative to x_30;) Tj T* (every following value is the movement between two consecutive future positions.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 272.0047 cm
+q
+BT 1 0 0 1 0 13.5 Tm 11.4 TL /F3 9.3 Tf 0 0 0 rg (This gives the three representations used by the experiment system: ) Tj /F2 9.3 Tf (raw coordinates) Tj /F3 9.3 Tf (, ) Tj /F2 9.3 Tf (heading-aligned positions) Tj /F3 9.3 Tf (, and) Tj T* /F2 9.3 Tf (heading-aligned displacements) Tj /F3 9.3 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 254.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (The transformation is reversible. Displacements recover aligned positions through) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 240.6047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 168.8835 0 Td (q_1 = d_1, q_t = q_\(t-1\) + d_t) Tj T* -168.8835 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 223.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2.1 Tm /F3 9.3 Tf 11.4 TL (and aligned positions return to the original coordinates through) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 209.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F4 8.6 Tf 10.5 TL 194.6835 0 Td (p = R\(theta\)q + x_30) Tj T* -194.6835 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 180.4047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 13.5 Tm /F3 9.3 Tf 11.4 TL (Normalization is applied after this representation is formed and is handled separately, since ordinary trajectory models and) Tj T* (chart-based flow models use different normalization layouts.) Tj T* ET
+Q
+Q
+ 
+endstream
+endobj
+12 0 obj
+<<
+/Length 2964
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 51.35433 781.2047 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 13 Tf 15 TL (Specs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 51.35433 763.8047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Observed trajectory: ) Tj /F2 9.3 Tf (30 positions) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 746.4047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Future trajectory: ) Tj /F2 9.3 Tf (30 positions) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 729.0047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Position dimension: ) Tj /F2 9.3 Tf (2) Tj T* 5 0 Td ET
+Q
+q
+1 0 0 1 51.35433 711.6047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Sampling interval: ) Tj /F2 9.3 Tf (20 s) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 694.2047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Last observed reference point: ) Tj /F2 9.3 Tf (x_30) Tj T* 5 0 Td ET
+Q
+q
+1 0 0 1 51.35433 676.8047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Consecutive history displacements available for heading: ) Tj /F2 9.3 Tf (29) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 659.4047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Minimum displacement norm accepted as motion: ) Tj /F2 9.3 Tf (10^-8) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 642.0047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Heading fallback when all observed displacements are below the threshold: ) Tj /F2 9.3 Tf (0 rad) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 624.6047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Forward alignment rotation: ) Tj /F2 9.3 Tf (-theta) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 607.2047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Inverse rotation: ) Tj /F2 9.3 Tf (+theta) Tj T* 5 0 Td ET
+Q
+q
+1 0 0 1 51.35433 589.8047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Aligned final observed position: ) Tj /F2 9.3 Tf (\(0, 0\)) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 572.4047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Heading-aligned displacement sequence: ) Tj /F2 9.3 Tf (30 two-dimensional values) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 555.0047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Displacement sequence contents: ) Tj /F2 9.3 Tf (1 initial aligned position + 29 consecutive displacements) Tj T* 5 0 Td ET
+Q
+q
+1 0 0 1 51.35433 537.6047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Representation shape before any chart conversion: ) Tj /F2 9.3 Tf (30 x 2) Tj T* 5 0 Td ET
+Q
+Q
+q
+1 0 0 1 51.35433 520.2047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Raw representation shape: ) Tj /F2 9.3 Tf (30 x 2) Tj T* 5 0 Td ET
+Q
+q
+1 0 0 1 51.35433 502.8047 cm
+q
+BT 1 0 0 1 8 2.1 Tm -5 0 Td 11.4 TL /F3 9.3 Tf 0 0 0 rg (- Preprocessing output dtype in the implementation: ) Tj /F2 9.3 Tf (float32) Tj T* 5 0 Td ET
+Q
+ 
+endstream
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000061 00000 n 
+0000000122 00000 n 
+0000000229 00000 n 
+0000000337 00000 n 
+0000000446 00000 n 
+0000000551 00000 n 
+0000000756 00000 n 
+0000000961 00000 n 
+0000001030 00000 n 
+0000001321 00000 n 
+0000001387 00000 n 
+0000007709 00000 n 
+trailer
+<<
+/ID 
+[<3afcb62af9273c177b59b00f08ce6705><3afcb62af9273c177b59b00f08ce6705>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 9 0 R
+/Root 8 0 R
+/Size 13
+>>
+startxref
+10725
+%%EOF

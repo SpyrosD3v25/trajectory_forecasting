@@ -1,6 +1,15 @@
 import torch
 
-from kineroute_nvp.losses.trajectory_physics import trajectory_loss
+from kineroute_nvp.losses.trajectory_physics import ade, fde, mse, trajectory_loss
+
+
+def test_ade_fde_and_mse_match_hand_checked_example() -> None:
+    target = torch.zeros(1, 2, 2)
+    predicted = torch.tensor([[[3.0, 4.0], [6.0, 8.0]]])
+
+    assert ade(predicted, target).item() == 7.5
+    assert fde(predicted, target).item() == 10.0
+    assert mse(predicted, target).item() == 31.25
 
 
 def test_losses_are_finite() -> None:

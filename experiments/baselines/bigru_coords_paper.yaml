@@ -6,6 +6,12 @@ data:
     - data/envship/paper_dma_clean_ship_core_lite_v1
     - data/envship/paper_noaa_clean_ship_core_lite_v1
   processed_root: data/processed/envship_baseline_paper_clean_coords
+  split_manifest: experiments/compact/split_manifest.json
+  history_steps: 30
+  future_steps: 30
+  dt_seconds: 20.0
+  prepare_if_missing: false
+  preprocessing_mode: raw
 
 model:
   name: bigru
@@ -18,13 +24,21 @@ loss:
   teacher_forcing_ratio: 0.0
 
 optimizer:
+  name: adamw
   learning_rate: 0.001
   weight_decay: 0.0001
+
+scheduler:
+  name: reduce_on_plateau
+  factor: 0.5
+  patience: 8
 
 training:
   epochs: 80
   batch_size: 256
   num_workers: 4
+  checkpoint_every_epochs: 10
+  early_stopping_patience: 15
   device: cuda
 
 output:
