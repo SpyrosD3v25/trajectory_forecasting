@@ -19,3 +19,4 @@ latex/*.synctex.gz
 latex/*.toc
 results/
 test_results/
+experiments/compact/split_manifest.json
